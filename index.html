@@ -1,1 +1,1488 @@
+# JB CHAT — index.html
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JB CHAT</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+:root{
+  --blue:#1877f2;
+  --bg:#f3f5f7;
+  --card:#fff;
+  --text:#111;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+}
+
+button,input,textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+  border:0;
+}
+
+.app{
+  min-height:100vh;
+}
+
+/* TOP BAR */
+.topbar{
+  height:64px;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 22px;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:800;
+  color:var(--blue);
+  letter-spacing:-1px;
+}
+
+.search{
+  width:330px;
+  background:#f0f2f5;
+  border-radius:22px;
+  padding:10px 16px;
+  border:0;
+  outline:none;
+}
+
+.top-actions{
+  display:flex;
+  gap:8px;
+}
+
+.icon-btn{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#f0f2f5;
+  font-size:20px;
+}
+
+.icon-btn:hover{
+  background:#e2e5e9;
+}
+
+/* LAYOUT */
+.layout{
+  max-width:1250px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:230px minmax(0,650px) 260px;
+  gap:20px;
+  padding:20px;
+}
+
+/* LEFT */
+.sidebar{
+  position:sticky;
+  top:84px;
+  height:max-content;
+}
+
+.menu{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.menu button{
+  text-align:left;
+  padding:13px 14px;
+  border-radius:10px;
+  background:transparent;
+  font-weight:600;
+  color:#333;
+}
+
+.menu button:hover,
+.menu button.active{
+  background:#e7f0ff;
+  color:var(--blue);
+}
+
+/* MAIN */
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  margin-bottom:16px;
+  overflow:hidden;
+}
+
+.card-padding{
+  padding:16px;
+}
+
+/* STORY */
+.stories{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding:14px;
+}
+
+.story{
+  min-width:95px;
+  height:145px;
+  border-radius:13px;
+  background:linear-gradient(145deg,#1877f2,#7c3aed);
+  color:#fff;
+  display:flex;
+  align-items:flex-end;
+  padding:10px;
+  font-weight:bold;
+  position:relative;
+}
+
+.story .avatar{
+  position:absolute;
+  top:9px;
+  left:9px;
+}
+
+/* CREATE POST */
+.create-row{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:var(--blue);
+  color:white;
+  font-weight:bold;
+  flex:none;
+}
+
+.fake-input{
+  flex:1;
+  background:#f0f2f5;
+  border-radius:22px;
+  padding:12px 16px;
+  color:#777;
+  cursor:pointer;
+}
+
+.post-tools{
+  display:flex;
+  justify-content:space-around;
+  border-top:1px solid var(--border);
+  margin-top:14px;
+  padding-top:10px;
+}
+
+.post-tools button{
+  background:transparent;
+  padding:8px 20px;
+  border-radius:8px;
+  color:#555;
+}
+
+.post-tools button:hover{
+  background:#f0f2f5;
+}
+
+/* POST */
+.post-head{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.post-info{
+  flex:1;
+}
+
+.post-info strong{
+  display:block;
+}
+
+.post-info small{
+  color:var(--muted);
+}
+
+.more{
+  background:transparent;
+  font-size:22px;
+}
+
+.post-text{
+  padding:14px 0;
+  line-height:1.5;
+}
+
+.post-image{
+  width:100%;
+  min-height:250px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#1877f2,#8b5cf6);
+  color:white;
+  font-size:42px;
+  font-weight:800;
+}
+
+.post-stats{
+  display:flex;
+  justify-content:space-between;
+  color:var(--muted);
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.post-actions{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+}
+
+.post-actions button{
+  background:transparent;
+  padding:11px;
+  color:#555;
+  font-weight:600;
+}
+
+.post-actions button:hover{
+  background:#f0f2f5;
+}
+
+.post-actions .liked{
+  color:#1877f2;
+}
+
+/* RIGHT */
+.right-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px;
+  margin-bottom:15px;
+}
+
+.right-card h3{
+  margin-bottom:14px;
+}
+
+.person{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin:12px 0;
+}
+
+.person-info{
+  flex:1;
+}
+
+.person-info strong{
+  display:block;
+  font-size:14px;
+}
+
+.person-info small{
+  color:var(--muted);
+}
+
+.follow{
+  background:var(--blue);
+  color:white;
+  border-radius:7px;
+  padding:7px 10px;
+  font-size:12px;
+}
+
+/* CHAT */
+.chat-list{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.chat-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:15px;
+  border-bottom:1px solid var(--border);
+  cursor:pointer;
+}
+
+.chat-item:hover{
+  background:#f7f8fa;
+}
+
+.chat-content{
+  flex:1;
+}
+
+.chat-content strong{
+  display:block;
+}
+
+.chat-content small{
+  color:var(--muted);
+}
+
+.chat-page{
+  height:600px;
+  display:flex;
+  flex-direction:column;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.chat-header{
+  padding:15px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.messages{
+  flex:1;
+  padding:18px;
+  overflow:auto;
+  background:#f7f8fa;
+}
+
+.msg{
+  max-width:70%;
+  padding:10px 13px;
+  border-radius:16px;
+  margin-bottom:9px;
+  line-height:1.4;
+}
+
+.msg.me{
+  margin-left:auto;
+  background:var(--blue);
+  color:white;
+  border-bottom-right-radius:4px;
+}
+
+.msg.them{
+  background:#e5e7eb;
+  border-bottom-left-radius:4px;
+}
+
+.chat-input{
+  display:flex;
+  gap:8px;
+  padding:12px;
+  border-top:1px solid var(--border);
+}
+
+.chat-input input{
+  flex:1;
+  border:0;
+  outline:none;
+  background:#f0f2f5;
+  border-radius:22px;
+  padding:11px 15px;
+}
+
+.send{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:var(--blue);
+  color:white;
+}
+
+/* PROFILE */
+.profile-cover{
+  height:180px;
+  background:linear-gradient(135deg,#1877f2,#7c3aed);
+}
+
+.profile-info{
+  padding:0 20px 20px;
+  position:relative;
+}
+
+.profile-big{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  background:#111;
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:28px;
+  font-weight:bold;
+  border:5px solid white;
+  margin-top:-45px;
+}
+
+.profile-info h2{
+  margin-top:8px;
+}
+
+.profile-info p{
+  color:var(--muted);
+  margin-top:5px;
+}
+
+.profile-buttons{
+  display:flex;
+  gap:8px;
+  margin-top:15px;
+}
+
+.primary{
+  background:var(--blue);
+  color:white;
+  padding:10px 16px;
+  border-radius:8px;
+}
+
+.secondary{
+  background:#e4e6eb;
+  color:#111;
+  padding:10px 16px;
+  border-radius:8px;
+}
+
+/* NOTIFICATIONS */
+.notification{
+  display:flex;
+  gap:12px;
+  padding:15px;
+  border-bottom:1px solid var(--border);
+}
+
+.notification p{
+  line-height:1.4;
+}
+
+.notification small{
+  color:var(--muted);
+}
+
+/* SEARCH */
+.search-box{
+  display:flex;
+  gap:8px;
+  margin-bottom:15px;
+}
+
+.search-box input{
+  flex:1;
+  padding:13px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  outline:none;
+}
+
+.search-box button{
+  background:var(--blue);
+  color:#fff;
+  padding:0 18px;
+  border-radius:10px;
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:500;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:min(500px,100%);
+  background:#fff;
+  border-radius:15px;
+  padding:20px;
+}
+
+.modal-box h2{
+  margin-bottom:15px;
+}
+
+.modal-box textarea{
+  width:100%;
+  height:150px;
+  resize:none;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:12px;
+  outline:none;
+}
+
+.modal-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin-top:12px;
+}
+
+/* MOBILE NAV */
+.bottom-nav{
+  display:none;
+}
+
+/* DARK */
+body.dark{
+  --bg:#111827;
+  --card:#1f2937;
+  --text:#f9fafb;
+  --muted:#9ca3af;
+  --border:#374151;
+}
+
+body.dark .topbar,
+body.dark .chat-list,
+body.dark .chat-page,
+body.dark .right-card,
+body.dark .modal-box{
+  background:#1f2937;
+}
+
+body.dark .search,
+body.dark .fake-input,
+body.dark .chat-input input{
+  background:#374151;
+  color:#fff;
+}
+
+body.dark .menu button{
+  color:#ddd;
+}
+
+body.dark .menu button.active{
+  color:#60a5fa;
+  background:#172554;
+}
+
+body.dark .secondary,
+body.dark .icon-btn{
+  background:#374151;
+  color:#fff;
+}
+
+/* RESPONSIVE */
+@media(max-width:1000px){
+  .layout{
+    grid-template-columns:190px minmax(0,1fr);
+  }
+
+  .rightbar{
+    display:none;
+  }
+}
+
+@media(max-width:700px){
+  .topbar{
+    padding:0 12px;
+  }
+
+  .search{
+    display:none;
+  }
+
+  .layout{
+    display:block;
+    padding:10px;
+    padding-bottom:75px;
+  }
+
+  .sidebar{
+    display:none;
+  }
+
+  .bottom-nav{
+    position:fixed;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    bottom:0;
+    left:0;
+    right:0;
+    height:62px;
+    background:#fff;
+    border-top:1px solid var(--border);
+    z-index:200;
+  }
+
+  .bottom-nav button{
+    background:transparent;
+    font-size:20px;
+  }
+
+  .bottom-nav button small{
+    display:block;
+    font-size:10px;
+  }
+
+  .top-actions .icon-btn:nth-child(2){
+    display:none;
+  }
+
+  .story{
+    min-width:90px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="topbar">
+  <div class="logo">JB CHAT</div>
+
+  <input id="topSearch" class="search"
+         placeholder="Search JB CHAT..."
+         oninput="searchUsers(this.value)">
+
+  <div class="top-actions">
+    <button class="icon-btn" onclick="showPage('notifications')">🔔</button>
+    <button class="icon-btn" onclick="toggleDark()">🌙</button>
+    <button class="icon-btn" onclick="showPage('profile')">J</button>
+  </div>
+</header>
+
+
+<div class="layout">
+
+<aside class="sidebar">
+  <nav class="menu">
+    <button class="active" onclick="showPage('home',this)">🏠 Home</button>
+    <button onclick="showPage('chats',this)">💬 Chats</button>
+    <button onclick="showPage('search',this)">🔎 Search</button>
+    <button onclick="showPage('notifications',this)">🔔 Notifications</button>
+    <button onclick="showPage('profile',this)">👤 Profile</button>
+  </nav>
+</aside>
+
+
+<main>
+
+<!-- HOME -->
+<section id="home" class="page active">
+
+<div class="card">
+  <div class="stories">
+
+    <div class="story">
+      <div class="avatar">J</div>
+      Your story
+    </div>
+
+    <div class="story">
+      <div class="avatar">A</div>
+      Alice
+    </div>
+
+    <div class="story">
+      <div class="avatar">M</div>
+      Mike
+    </div>
+
+    <div class="story">
+      <div class="avatar">S</div>
+      Sarah
+    </div>
+
+  </div>
+</div>
+
+
+<div class="card card-padding">
+
+  <div class="create-row">
+    <div class="avatar">J</div>
+
+    <div class="fake-input" onclick="openPostModal()">
+      What's on your mind, Jay?
+    </div>
+  </div>
+
+  <div class="post-tools">
+    <button onclick="openPostModal()">📝 Post</button>
+    <button onclick="openPostModal()">📷 Photo</button>
+    <button onclick="openPostModal()">😊 Feeling</button>
+  </div>
+
+</div>
+
+
+<div id="posts">
+
+<!-- POST 1 -->
+<article class="card">
+  <div class="card-padding">
+
+    <div class="post-head">
+      <div class="avatar">J</div>
+
+      <div class="post-info">
+        <strong>jaylosy</strong>
+        <small>Just now · 🌎</small>
+      </div>
+
+      <button class="more" onclick="postMenu()">•••</button>
+    </div>
+
+    <div class="post-text">
+      Welcome to <b>JB CHAT</b> 🚀<br>
+      Connect, chat and share with your friends.
+    </div>
+
+  </div>
+
+  <div class="post-image">
+    JB CHAT
+  </div>
+
+  <div class="card-padding">
+
+    <div class="post-stats">
+      <span class="likes">👍 <span class="like-count">0</span> likes</span>
+      <span>0 comments · 0 shares</span>
+    </div>
+
+    <div class="post-actions">
+      <button onclick="likePost(this)">♡ Like</button>
+      <button onclick="commentPost()">💬 Comment</button>
+      <button onclick="sharePost()">➤ Share</button>
+    </div>
+
+  </div>
+</article>
+
+
+<!-- POST 2 -->
+<article class="card">
+  <div class="card-padding">
+
+    <div class="post-head">
+      <div class="avatar">A</div>
+
+      <div class="post-info">
+        <strong>Alice</strong>
+        <small>5 min · 🌎</small>
+      </div>
+
+      <button class="more">•••</button>
+    </div>
+
+    <div class="post-text">
+      Hello everyone 👋
+    </div>
+
+    <div class="post-stats">
+      <span>👍 <span class="like-count">3</span> likes</span>
+      <span>1 comment · 0 shares</span>
+    </div>
+
+    <div class="post-actions">
+      <button onclick="likePost(this)">♡ Like</button>
+      <button onclick="commentPost()">💬 Comment</button>
+      <button onclick="sharePost()">➤ Share</button>
+    </div>
+
+  </div>
+</article>
+
+</div>
+</section>
+
+
+<!-- CHATS -->
+<section id="chats" class="page">
+
+<div class="chat-list">
+
+  <div class="chat-item" onclick="openChat('Alice','A')">
+    <div class="avatar">A</div>
+    <div class="chat-content">
+      <strong>Alice</strong>
+      <small>Hello 👋</small>
+    </div>
+    <small>2m</small>
+  </div>
+
+  <div class="chat-item" onclick="openChat('Mike','M')">
+    <div class="avatar">M</div>
+    <div class="chat-content">
+      <strong>Mike</strong>
+      <small>See you later!</small>
+    </div>
+    <small>8m</small>
+  </div>
+
+  <div class="chat-item" onclick="openChat('Sarah','S')">
+    <div class="avatar">S</div>
+    <div class="chat-content">
+      <strong>Sarah</strong>
+      <small>Good morning 😊</small>
+    </div>
+    <small>20m</small>
+  </div>
+
+</div>
+
+<div id="chatWindow" style="display:none;margin-top:15px;"></div>
+
+</section>
+
+
+<!-- SEARCH -->
+<section id="search" class="page">
+
+<div class="card card-padding">
+
+  <h2>Search</h2>
+
+  <div class="search-box" style="margin-top:15px;">
+    <input id="searchInput"
+           placeholder="Search people..."
+           oninput="searchUsers(this.value)">
+    <button onclick="searchUsers(document.getElementById('searchInput').value)">
+      Search
+    </button>
+  </div>
+
+</div>
+
+<div id="searchResults"></div>
+
+</section>
+
+
+<!-- NOTIFICATIONS -->
+<section id="notifications" class="page">
+
+<div class="card">
+
+  <div class="notification">
+    <div class="avatar">A</div>
+    <div>
+      <p><b>Alice</b> liked your post 👍</p>
+      <small>2 minutes ago</small>
+    </div>
+  </div>
+
+  <div class="notification">
+    <div class="avatar">M</div>
+    <div>
+      <p><b>Mike</b> sent you a message 💬</p>
+      <small>10 minutes ago</small>
+    </div>
+  </div>
+
+  <div class="notification">
+    <div class="avatar">S</div>
+    <div>
+      <p><b>Sarah</b> started following you</p>
+      <small>30 minutes ago</small>
+    </div>
+  </div>
+
+</div>
+
+</section>
+
+
+<!-- PROFILE -->
+<section id="profile" class="page">
+
+<div class="card">
+
+  <div class="profile-cover"></div>
+
+  <div class="profile-info">
+
+    <div class="profile-big">J</div>
+
+    <h2>Jaylosy</h2>
+
+    <p>@jaylosy · JB CHAT</p>
+
+    <p>Connecting people and sharing moments 🚀</p>
+
+    <div class="profile-buttons">
+      <button class="primary" onclick="editProfile()">Edit profile</button>
+      <button class="secondary" onclick="shareProfile()">Share profile</button>
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="card card-padding">
+
+  <h3>About</h3>
+
+  <p style="margin-top:10px;color:var(--muted);">
+    Welcome to my JB CHAT profile.
+  </p>
+
+</div>
+
+</section>
+
+</main>
+
+
+<aside class="rightbar">
+
+<div class="right-card">
+
+<h3>People you may know</h3>
+
+<div class="person">
+  <div class="avatar">A</div>
+  <div class="person-info">
+    <strong>Alice</strong>
+    <small>New user</small>
+  </div>
+  <button class="follow" onclick="follow(this)">Follow</button>
+</div>
+
+<div class="person">
+  <div class="avatar">M</div>
+  <div class="person-info">
+    <strong>Mike</strong>
+    <small>New user</small>
+  </div>
+  <button class="follow" onclick="follow(this)">Follow</button>
+</div>
+
+<div class="person">
+  <div class="avatar">S</div>
+  <div class="person-info">
+    <strong>Sarah</strong>
+    <small>New user</small>
+  </div>
+  <button class="follow" onclick="follow(this)">Follow</button>
+</div>
+
+</div>
+
+<div class="right-card">
+
+<h3>JB CHAT</h3>
+
+<p style="color:var(--muted);line-height:1.5;">
+Connect with friends, send messages and share your moments.
+</p>
+
+</div>
+
+</aside>
+
+</div>
+
+
+<!-- MOBILE NAV -->
+<nav class="bottom-nav">
+  <button onclick="showPage('home')">🏠<small>Home</small></button>
+  <button onclick="showPage('chats')">💬<small>Chats</small></button>
+  <button onclick="showPage('search')">🔎<small>Search</small></button>
+  <button onclick="showPage('notifications')">🔔<small>Alerts</small></button>
+  <button onclick="showPage('profile')">👤<small>Profile</small></button>
+</nav>
+
+
+<!-- POST MODAL -->
+<div id="postModal" class="modal">
+
+<div class="modal-box">
+
+<h2>Create post</h2>
+
+<textarea id="postText"
+placeholder="What's on your mind?"></textarea>
+
+<div class="modal-actions">
+  <button class="secondary" onclick="closePostModal()">Cancel</button>
+  <button class="primary" onclick="createPost()">Post</button>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+let currentChat = "";
+
+
+/* PAGE NAVIGATION */
+function showPage(page,button){
+
+  document.querySelectorAll(".page")
+    .forEach(p=>p.classList.remove("active"));
+
+  const target=document.getElementById(page);
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  document.querySelectorAll(".menu button")
+    .forEach(b=>b.classList.remove("active"));
+
+  if(button){
+    button.classList.add("active");
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+
+/* DARK MODE */
+function toggleDark(){
+
+  document.body.classList.toggle("dark");
+
+  localStorage.setItem(
+    "jbchat-dark",
+    document.body.classList.contains("dark")
+  );
+
+}
+
+if(localStorage.getItem("jbchat-dark")==="true"){
+  document.body.classList.add("dark");
+}
+
+
+/* POST MODAL */
+function openPostModal(){
+  document.getElementById("postModal").classList.add("show");
+  document.getElementById("postText").focus();
+}
+
+function closePostModal(){
+  document.getElementById("postModal").classList.remove("show");
+  document.getElementById("postText").value="";
+}
+
+
+/* CREATE POST */
+function createPost(){
+
+  const text=document.getElementById("postText").value.trim();
+
+  if(!text){
+    alert("Write something first.");
+    return;
+  }
+
+  const post=document.createElement("article");
+
+  post.className="card";
+
+  post.innerHTML=`
+
+    <div class="card-padding">
+
+      <div class="post-head">
+
+        <div class="avatar">J</div>
+
+        <div class="post-info">
+          <strong>Jaylosy</strong>
+          <small>Just now · 🌎</small>
+        </div>
+
+        <button class="more">•••</button>
+
+      </div>
+
+      <div class="post-text">
+        ${escapeHTML(text)}
+      </div>
+
+      <div class="post-stats">
+        <span>👍 <span class="like-count">0</span> likes</span>
+        <span>0 comments · 0 shares</span>
+      </div>
+
+      <div class="post-actions">
+        <button onclick="likePost(this)">♡ Like</button>
+        <button onclick="commentPost()">💬 Comment</button>
+        <button onclick="sharePost()">➤ Share</button>
+      </div>
+
+    </div>
+  `;
+
+  document.getElementById("posts").prepend(post);
+
+  closePostModal();
+}
+
+
+/* LIKE */
+function likePost(button){
+
+  const post=button.closest(".card");
+
+  const count=post.querySelector(".like-count");
+
+  let number=parseInt(count.textContent) || 0;
+
+  if(button.classList.contains("liked")){
+
+    number--;
+
+    button.classList.remove("liked");
+    button.innerHTML="♡ Like";
+
+  }else{
+
+    number++;
+
+    button.classList.add("liked");
+    button.innerHTML="♥ Liked";
+
+  }
+
+  count.textContent=number;
+}
+
+
+/* COMMENT */
+function commentPost(){
+
+  const comment=prompt("Write your comment:");
+
+  if(comment && comment.trim()){
+
+    alert("Comment added: "+comment.trim());
+
+  }
+
+}
+
+
+/* SHARE */
+function sharePost(){
+
+  if(navigator.share){
+
+    navigator.share({
+      title:"JB CHAT",
+      text:"Check this post on JB CHAT!"
+    });
+
+  }else{
+
+    navigator.clipboard?.writeText(
+      "Check this post on JB CHAT!"
+    );
+
+    alert("Post link copied!");
+
+  }
+
+}
+
+
+/* FOLLOW */
+function follow(button){
+
+  if(button.textContent==="Follow"){
+
+    button.textContent="Following";
+    button.style.background="#e4e6eb";
+    button.style.color="#111";
+
+  }else{
+
+    button.textContent="Follow";
+    button.style.background="";
+    button.style.color="";
+
+  }
+
+}
+
+
+/* CHAT */
+function openChat(name,letter){
+
+  currentChat=name;
+
+  document.getElementById("chatWindow").style.display="block";
+
+  document.getElementById("chatWindow").innerHTML=`
+
+    <div class="chat-page">
+
+      <div class="chat-header">
+
+        <div class="avatar">${letter}</div>
+
+        <div>
+          <strong>${name}</strong>
+          <small style="display:block;color:var(--muted);">
+            Online
+          </small>
+        </div>
+
+      </div>
+
+      <div id="messages" class="messages">
+
+        <div class="msg them">
+          Hello 👋
+        </div>
+
+        <div class="msg them">
+          Welcome to JB CHAT!
+        </div>
+
+      </div>
+
+      <div class="chat-input">
+
+        <input
+          id="messageInput"
+          placeholder="Write a message..."
+          onkeydown="if(event.key==='Enter')sendMessage()"
+        >
+
+        <button class="send" onclick="sendMessage()">➤</button>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function sendMessage(){
+
+  const input=document.getElementById("messageInput");
+
+  if(!input || !input.value.trim()) return;
+
+  const messages=document.getElementById("messages");
+
+  const message=document.createElement("div");
+
+  message.className="msg me";
+
+  message.textContent=input.value.trim();
+
+  messages.appendChild(message);
+
+  input.value="";
+
+  messages.scrollTop=messages.scrollHeight;
+
+}
+
+
+/* SEARCH */
+function searchUsers(value){
+
+  const q=value.trim().toLowerCase();
+
+  const results=document.getElementById("searchResults");
+
+  if(!results) return;
+
+  const people=[
+    ["Alice","A"],
+    ["Mike","M"],
+    ["Sarah","S"],
+    ["Jaylosy","J"]
+  ];
+
+  if(!q){
+
+    results.innerHTML="";
+
+    return;
+
+  }
+
+  const found=people.filter(
+    p=>p[0].toLowerCase().includes(q)
+  );
+
+  if(!found.length){
+
+    results.innerHTML=`
+      <div class="card card-padding">
+        No users found.
+      </div>
+    `;
+
+    return;
+
+  }
+
+  results.innerHTML=found.map(p=>`
+
+    <div class="card card-padding">
+
+      <div class="person">
+
+        <div class="avatar">${p[1]}</div>
+
+        <div class="person-info">
+          <strong>${p[0]}</strong>
+          <small>JB CHAT user</small>
+        </div>
+
+        <button class="follow"
+                onclick="follow(this)">
+          Follow
+        </button>
+
+      </div>
+
+    </div>
+
+  `).join("");
+
+}
+
+
+/* PROFILE */
+function editProfile(){
+
+  const name=prompt(
+    "Enter your display name:",
+    "Jaylosy"
+  );
+
+  if(name && name.trim()){
+
+    document.querySelector(
+      "#profile h2"
+    ).textContent=name.trim();
+
+  }
+
+}
+
+
+function shareProfile(){
+
+  const text="Check my profile on JB CHAT!";
+
+  if(navigator.share){
+
+    navigator.share({
+      title:"JB CHAT",
+      text:text
+    });
+
+  }else{
+
+    navigator.clipboard?.writeText(text);
+
+    alert("Profile link copied!");
+
+  }
+
+}
+
+
+/* MORE MENU */
+function postMenu(){
+
+  alert("Post options coming soon.");
+
+}
+
+
+/* SECURITY */
+function escapeHTML(value){
+
+  const div=document.createElement("div");
+
+  div.textContent=value;
+
+  return div.innerHTML;
+
+}
+
+
+/* CLOSE MODAL */
+document.getElementById("postModal")
+  .addEventListener("click",function(e){
+
+    if(e.target===this){
+      closePostModal();
+    }
+
+  });
+
+</script>
+
+</body>
+</html>
+```
 
