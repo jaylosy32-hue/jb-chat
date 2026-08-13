@@ -1,11 +1,9 @@
-# JB CHAT — index.html
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>JB CHAT</title>
 
 <style>
@@ -23,6 +21,7 @@
   --text:#111;
   --muted:#6b7280;
   --border:#e5e7eb;
+  --danger:#e53935;
 }
 
 body{
@@ -39,11 +38,182 @@ button{
   border:0;
 }
 
+.hidden{
+  display:none !important;
+}
+
+/* =========================
+   AUTH
+========================= */
+
+#authScreen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:linear-gradient(135deg,#1877f2,#7c3aed);
+}
+
+.auth-box{
+  width:min(430px,100%);
+  background:#fff;
+  border-radius:20px;
+  padding:30px;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+
+.auth-logo{
+  text-align:center;
+  color:var(--blue);
+  font-size:34px;
+  font-weight:900;
+  margin-bottom:8px;
+}
+
+.auth-subtitle{
+  text-align:center;
+  color:#777;
+  margin-bottom:25px;
+}
+
+.auth-tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:5px;
+  background:#f0f2f5;
+  padding:5px;
+  border-radius:10px;
+  margin-bottom:20px;
+}
+
+.auth-tabs button{
+  padding:11px;
+  border-radius:8px;
+  background:transparent;
+  font-weight:bold;
+}
+
+.auth-tabs button.active{
+  background:#fff;
+  color:var(--blue);
+  box-shadow:0 2px 6px rgba(0,0,0,.08);
+}
+
+.auth-form{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.auth-form label{
+  font-size:13px;
+  font-weight:bold;
+}
+
+.auth-form input{
+  width:100%;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  outline:none;
+}
+
+.auth-form input:focus{
+  border-color:var(--blue);
+}
+
+.auth-btn{
+  width:100%;
+  padding:13px;
+  background:var(--blue);
+  color:#fff;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.google-btn{
+  width:100%;
+  padding:13px;
+  background:#fff;
+  border:1px solid #ddd;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.divider{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:16px 0;
+  color:#888;
+  font-size:13px;
+}
+
+.divider:before,
+.divider:after{
+  content:"";
+  flex:1;
+  height:1px;
+  background:#ddd;
+}
+
+.auth-message{
+  padding:10px;
+  border-radius:8px;
+  font-size:13px;
+  display:none;
+}
+
+.auth-message.error{
+  display:block;
+  background:#ffebee;
+  color:#c62828;
+}
+
+.auth-message.success{
+  display:block;
+  background:#e8f5e9;
+  color:#2e7d32;
+}
+
+.forgot{
+  background:none;
+  color:var(--blue);
+  font-size:13px;
+  text-align:right;
+}
+
+.verify-box{
+  text-align:center;
+}
+
+.verify-box h2{
+  margin-bottom:12px;
+}
+
+.verify-box p{
+  color:#666;
+  line-height:1.5;
+  margin-bottom:20px;
+}
+
+.verify-actions{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+/* =========================
+   APP
+========================= */
+
 .app{
   min-height:100vh;
 }
 
 /* TOP BAR */
+
 .topbar{
   height:64px;
   background:#fff;
@@ -91,6 +261,7 @@ button{
 }
 
 /* LAYOUT */
+
 .layout{
   max-width:1250px;
   margin:auto;
@@ -101,6 +272,7 @@ button{
 }
 
 /* LEFT */
+
 .sidebar{
   position:sticky;
   top:84px;
@@ -129,6 +301,7 @@ button{
 }
 
 /* MAIN */
+
 .page{
   display:none;
 }
@@ -150,6 +323,7 @@ button{
 }
 
 /* STORY */
+
 .stories{
   display:flex;
   gap:10px;
@@ -177,6 +351,7 @@ button{
 }
 
 /* CREATE POST */
+
 .create-row{
   display:flex;
   gap:12px;
@@ -224,6 +399,7 @@ button{
 }
 
 /* POST */
+
 .post-head{
   display:flex;
   align-items:center;
@@ -292,6 +468,7 @@ button{
 }
 
 /* RIGHT */
+
 .right-card{
   background:#fff;
   border:1px solid var(--border);
@@ -333,6 +510,7 @@ button{
 }
 
 /* CHAT */
+
 .chat-list{
   background:#fff;
   border:1px solid var(--border);
@@ -435,6 +613,7 @@ button{
 }
 
 /* PROFILE */
+
 .profile-cover{
   height:180px;
   background:linear-gradient(135deg,#1877f2,#7c3aed);
@@ -489,6 +668,7 @@ button{
 }
 
 /* NOTIFICATIONS */
+
 .notification{
   display:flex;
   gap:12px;
@@ -505,6 +685,7 @@ button{
 }
 
 /* SEARCH */
+
 .search-box{
   display:flex;
   gap:8px;
@@ -527,6 +708,7 @@ button{
 }
 
 /* MODAL */
+
 .modal{
   position:fixed;
   inset:0;
@@ -571,11 +753,13 @@ button{
 }
 
 /* MOBILE NAV */
+
 .bottom-nav{
   display:none;
 }
 
 /* DARK */
+
 body.dark{
   --bg:#111827;
   --card:#1f2937;
@@ -615,7 +799,9 @@ body.dark .icon-btn{
 }
 
 /* RESPONSIVE */
+
 @media(max-width:1000px){
+
   .layout{
     grid-template-columns:190px minmax(0,1fr);
   }
@@ -626,6 +812,7 @@ body.dark .icon-btn{
 }
 
 @media(max-width:700px){
+
   .topbar{
     padding:0 12px;
   }
@@ -674,229 +861,664 @@ body.dark .icon-btn{
   .story{
     min-width:90px;
   }
+
+  .auth-box{
+    padding:22px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<!-- ==================================================
+     AUTH SCREEN
+================================================== -->
+
+<div id="authScreen">
+
+  <div class="auth-box">
+
+    <div class="auth-logo">JB CHAT</div>
+
+    <div class="auth-subtitle">
+      Connect, chat and share with your friends.
+    </div>
+
+    <!-- AUTH TABS -->
+
+    <div id="authTabs" class="auth-tabs">
+
+      <button
+        id="loginTab"
+        class="active"
+        onclick="showAuthForm('login')">
+        Login
+      </button>
+
+      <button
+        id="registerTab"
+        onclick="showAuthForm('register')">
+        Create account
+      </button>
+
+    </div>
+
+    <div id="authMessage" class="auth-message"></div>
+
+
+    <!-- LOGIN -->
+
+    <form id="loginForm"
+          class="auth-form"
+          onsubmit="loginUser(event)">
+
+      <label>Email</label>
+
+      <input
+        id="loginEmail"
+        type="email"
+        placeholder="Enter your email"
+        required>
+
+      <label>Password</label>
+
+      <input
+        id="loginPassword"
+        type="password"
+        placeholder="Enter your password"
+        required>
+
+      <button type="button"
+              class="forgot"
+              onclick="resetPassword()">
+        Forgot password?
+      </button>
+
+      <button
+        class="auth-btn"
+        type="submit">
+        Login
+      </button>
+
+    </form>
+
+
+    <!-- REGISTER -->
+
+    <form id="registerForm"
+          class="auth-form hidden"
+          onsubmit="registerUser(event)">
+
+      <label>Full name</label>
+
+      <input
+        id="registerName"
+        type="text"
+        placeholder="Your name"
+        required>
+
+      <label>Email</label>
+
+      <input
+        id="registerEmail"
+        type="email"
+        placeholder="Your email"
+        required>
+
+      <label>Password</label>
+
+      <input
+        id="registerPassword"
+        type="password"
+        placeholder="At least 6 characters"
+        minlength="6"
+        required>
+
+      <label>Confirm password</label>
+
+      <input
+        id="registerPassword2"
+        type="password"
+        placeholder="Confirm password"
+        minlength="6"
+        required>
+
+      <button
+        class="auth-btn"
+        type="submit">
+        Create account
+      </button>
+
+    </form>
+
+
+    <div class="divider">
+      OR
+    </div>
+
+    <button
+      class="google-btn"
+      onclick="loginWithGoogle()">
+      🔵 Continue with Google
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ==================================================
+     EMAIL VERIFICATION
+================================================== -->
+
+<div id="verifyScreen"
+     class="hidden"
+     style="min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:20px;
+            background:#f3f5f7;">
+
+  <div class="auth-box verify-box">
+
+    <div class="auth-logo">JB CHAT</div>
+
+    <h2>Verify your email</h2>
+
+    <p>
+      We sent a verification email to
+      <b id="verifyEmail"></b>.
+      <br><br>
+      Open your email and click the verification link,
+      then come back here.
+    </p>
+
+    <div class="verify-actions">
+
+      <button
+        class="auth-btn"
+        onclick="checkVerification()">
+        ✅ I verified my email
+      </button>
+
+      <button
+        class="secondary"
+        onclick="sendVerificationAgain()">
+        Send verification again
+      </button>
+
+      <button
+        class="secondary"
+        onclick="logoutUser()">
+        Logout
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ==================================================
+     MAIN APP
+================================================== -->
+
+<div id="mainApp"
+     class="app hidden">
 
 <header class="topbar">
-  <div class="logo">JB CHAT</div>
 
-  <input id="topSearch" class="search"
-         placeholder="Search JB CHAT..."
-         oninput="searchUsers(this.value)">
+  <div class="logo">
+    JB CHAT
+  </div>
+
+  <input
+    id="topSearch"
+    class="search"
+    placeholder="Search JB CHAT..."
+    oninput="searchUsers(this.value)">
 
   <div class="top-actions">
-    <button class="icon-btn" onclick="showPage('notifications')">🔔</button>
-    <button class="icon-btn" onclick="toggleDark()">🌙</button>
-    <button class="icon-btn" onclick="showPage('profile')">J</button>
+
+    <button
+      class="icon-btn"
+      onclick="showPage('notifications')">
+      🔔
+    </button>
+
+    <button
+      class="icon-btn"
+      onclick="toggleDark()">
+      🌙
+    </button>
+
+    <button
+      class="icon-btn"
+      onclick="showPage('profile')">
+      <span id="topAvatar">J</span>
+    </button>
+
   </div>
+
 </header>
 
 
 <div class="layout">
 
+
+<!-- LEFT SIDEBAR -->
+
 <aside class="sidebar">
-  <nav class="menu">
-    <button class="active" onclick="showPage('home',this)">🏠 Home</button>
-    <button onclick="showPage('chats',this)">💬 Chats</button>
-    <button onclick="showPage('search',this)">🔎 Search</button>
-    <button onclick="showPage('notifications',this)">🔔 Notifications</button>
-    <button onclick="showPage('profile',this)">👤 Profile</button>
-  </nav>
+
+<nav class="menu">
+
+  <button
+    class="active"
+    onclick="showPage('home',this)">
+    🏠 Home
+  </button>
+
+  <button
+    onclick="showPage('chats',this)">
+    💬 Chats
+  </button>
+
+  <button
+    onclick="showPage('search',this)">
+    🔎 Search
+  </button>
+
+  <button
+    onclick="showPage('notifications',this)">
+    🔔 Notifications
+  </button>
+
+  <button
+    onclick="showPage('profile',this)">
+    👤 Profile
+  </button>
+
+  <button
+    onclick="logoutUser()">
+    🚪 Logout
+  </button>
+
+</nav>
+
 </aside>
 
 
+<!-- MAIN -->
+
 <main>
 
+
 <!-- HOME -->
-<section id="home" class="page active">
+
+<section
+  id="home"
+  class="page active">
+
 
 <div class="card">
-  <div class="stories">
 
-    <div class="story">
-      <div class="avatar">J</div>
-      Your story
+<div class="stories">
+
+  <div class="story">
+    <div class="avatar"
+         id="storyAvatar">
+      J
     </div>
-
-    <div class="story">
-      <div class="avatar">A</div>
-      Alice
-    </div>
-
-    <div class="story">
-      <div class="avatar">M</div>
-      Mike
-    </div>
-
-    <div class="story">
-      <div class="avatar">S</div>
-      Sarah
-    </div>
-
+    Your story
   </div>
+
+  <div class="story">
+    <div class="avatar">A</div>
+    Alice
+  </div>
+
+  <div class="story">
+    <div class="avatar">M</div>
+    Mike
+  </div>
+
+  <div class="story">
+    <div class="avatar">S</div>
+    Sarah
+  </div>
+
 </div>
 
+</div>
+
+
+<!-- CREATE POST -->
 
 <div class="card card-padding">
 
-  <div class="create-row">
-    <div class="avatar">J</div>
+<div class="create-row">
 
-    <div class="fake-input" onclick="openPostModal()">
-      What's on your mind, Jay?
-    </div>
+  <div
+    class="avatar"
+    id="createAvatar">
+    J
   </div>
 
-  <div class="post-tools">
-    <button onclick="openPostModal()">📝 Post</button>
-    <button onclick="openPostModal()">📷 Photo</button>
-    <button onclick="openPostModal()">😊 Feeling</button>
+  <div
+    class="fake-input"
+    onclick="openPostModal()">
+    What's on your mind?
   </div>
 
 </div>
 
 
+<div class="post-tools">
+
+  <button onclick="openPostModal()">
+    📝 Post
+  </button>
+
+  <button onclick="openPostModal()">
+    📷 Photo
+  </button>
+
+  <button onclick="openPostModal()">
+    😊 Feeling
+  </button>
+
+</div>
+
+</div>
+
+
+<!-- POSTS -->
+
 <div id="posts">
 
+
 <!-- POST 1 -->
+
 <article class="card">
-  <div class="card-padding">
 
-    <div class="post-head">
-      <div class="avatar">J</div>
+<div class="card-padding">
 
-      <div class="post-info">
-        <strong>jaylosy</strong>
-        <small>Just now · 🌎</small>
-      </div>
+<div class="post-head">
 
-      <button class="more" onclick="postMenu()">•••</button>
-    </div>
+<div class="avatar">
+J
+</div>
 
-    <div class="post-text">
-      Welcome to <b>JB CHAT</b> 🚀<br>
-      Connect, chat and share with your friends.
-    </div>
+<div class="post-info">
 
-  </div>
+<strong>jaylosy</strong>
 
-  <div class="post-image">
-    JB CHAT
-  </div>
+<small>
+Just now · 🌎
+</small>
 
-  <div class="card-padding">
+</div>
 
-    <div class="post-stats">
-      <span class="likes">👍 <span class="like-count">0</span> likes</span>
-      <span>0 comments · 0 shares</span>
-    </div>
+<button
+  class="more"
+  onclick="postMenu()">
+•••
+</button>
 
-    <div class="post-actions">
-      <button onclick="likePost(this)">♡ Like</button>
-      <button onclick="commentPost()">💬 Comment</button>
-      <button onclick="sharePost()">➤ Share</button>
-    </div>
+</div>
 
-  </div>
+
+<div class="post-text">
+
+Welcome to
+<b>JB CHAT</b> 🚀
+
+<br>
+
+Connect, chat and share
+with your friends.
+
+</div>
+
+</div>
+
+
+<div class="post-image">
+JB CHAT
+</div>
+
+
+<div class="card-padding">
+
+<div class="post-stats">
+
+<span>
+👍
+<span class="like-count">
+0
+</span>
+likes
+</span>
+
+<span>
+0 comments · 0 shares
+</span>
+
+</div>
+
+
+<div class="post-actions">
+
+<button
+  onclick="likePost(this)">
+♡ Like
+</button>
+
+<button
+  onclick="commentPost()">
+💬 Comment
+</button>
+
+<button
+  onclick="sharePost()">
+➤ Share
+</button>
+
+</div>
+
+</div>
+
 </article>
 
 
 <!-- POST 2 -->
+
 <article class="card">
-  <div class="card-padding">
 
-    <div class="post-head">
-      <div class="avatar">A</div>
+<div class="card-padding">
 
-      <div class="post-info">
-        <strong>Alice</strong>
-        <small>5 min · 🌎</small>
-      </div>
+<div class="post-head">
 
-      <button class="more">•••</button>
-    </div>
+<div class="avatar">
+A
+</div>
 
-    <div class="post-text">
-      Hello everyone 👋
-    </div>
+<div class="post-info">
 
-    <div class="post-stats">
-      <span>👍 <span class="like-count">3</span> likes</span>
-      <span>1 comment · 0 shares</span>
-    </div>
+<strong>Alice</strong>
 
-    <div class="post-actions">
-      <button onclick="likePost(this)">♡ Like</button>
-      <button onclick="commentPost()">💬 Comment</button>
-      <button onclick="sharePost()">➤ Share</button>
-    </div>
+<small>
+5 min · 🌎
+</small>
 
-  </div>
+</div>
+
+<button class="more">
+•••
+</button>
+
+</div>
+
+
+<div class="post-text">
+Hello everyone 👋
+</div>
+
+
+<div class="post-stats">
+
+<span>
+👍
+<span class="like-count">
+3
+</span>
+likes
+</span>
+
+<span>
+1 comment · 0 shares
+</span>
+
+</div>
+
+
+<div class="post-actions">
+
+<button onclick="likePost(this)">
+♡ Like
+</button>
+
+<button onclick="commentPost()">
+💬 Comment
+</button>
+
+<button onclick="sharePost()">
+➤ Share
+</button>
+
+</div>
+
+</div>
+
 </article>
 
 </div>
+
 </section>
 
 
 <!-- CHATS -->
-<section id="chats" class="page">
+
+<section
+  id="chats"
+  class="page">
 
 <div class="chat-list">
 
-  <div class="chat-item" onclick="openChat('Alice','A')">
-    <div class="avatar">A</div>
-    <div class="chat-content">
-      <strong>Alice</strong>
-      <small>Hello 👋</small>
-    </div>
-    <small>2m</small>
-  </div>
+<div
+  class="chat-item"
+  onclick="openChat('Alice','A')">
 
-  <div class="chat-item" onclick="openChat('Mike','M')">
-    <div class="avatar">M</div>
-    <div class="chat-content">
-      <strong>Mike</strong>
-      <small>See you later!</small>
-    </div>
-    <small>8m</small>
-  </div>
+<div class="avatar">A</div>
 
-  <div class="chat-item" onclick="openChat('Sarah','S')">
-    <div class="avatar">S</div>
-    <div class="chat-content">
-      <strong>Sarah</strong>
-      <small>Good morning 😊</small>
-    </div>
-    <small>20m</small>
-  </div>
+<div class="chat-content">
+
+<strong>Alice</strong>
+
+<small>
+Hello 👋
+</small>
 
 </div>
 
-<div id="chatWindow" style="display:none;margin-top:15px;"></div>
+<small>2m</small>
+
+</div>
+
+
+<div
+  class="chat-item"
+  onclick="openChat('Mike','M')">
+
+<div class="avatar">M</div>
+
+<div class="chat-content">
+
+<strong>Mike</strong>
+
+<small>
+See you later!
+</small>
+
+</div>
+
+<small>8m</small>
+
+</div>
+
+
+<div
+  class="chat-item"
+  onclick="openChat('Sarah','S')">
+
+<div class="avatar">S</div>
+
+<div class="chat-content">
+
+<strong>Sarah</strong>
+
+<small>
+Good morning 😊
+</small>
+
+</div>
+
+<small>20m</small>
+
+</div>
+
+</div>
+
+
+<div
+  id="chatWindow"
+  style="display:none;margin-top:15px;">
+</div>
 
 </section>
 
 
 <!-- SEARCH -->
-<section id="search" class="page">
+
+<section
+  id="search"
+  class="page">
 
 <div class="card card-padding">
 
-  <h2>Search</h2>
+<h2>
+Search
+</h2>
 
-  <div class="search-box" style="margin-top:15px;">
-    <input id="searchInput"
-           placeholder="Search people..."
-           oninput="searchUsers(this.value)">
-    <button onclick="searchUsers(document.getElementById('searchInput').value)">
-      Search
-    </button>
-  </div>
+<div
+  class="search-box"
+  style="margin-top:15px;">
+
+<input
+  id="searchInput"
+  placeholder="Search people..."
+  oninput="searchUsers(this.value)">
+
+<button
+  onclick="searchUsers(
+  document.getElementById('searchInput').value)">
+Search
+</button>
+
+</div>
 
 </div>
 
@@ -906,33 +1528,77 @@ body.dark .icon-btn{
 
 
 <!-- NOTIFICATIONS -->
-<section id="notifications" class="page">
+
+<section
+  id="notifications"
+  class="page">
 
 <div class="card">
 
-  <div class="notification">
-    <div class="avatar">A</div>
-    <div>
-      <p><b>Alice</b> liked your post 👍</p>
-      <small>2 minutes ago</small>
-    </div>
-  </div>
+<div class="notification">
 
-  <div class="notification">
-    <div class="avatar">M</div>
-    <div>
-      <p><b>Mike</b> sent you a message 💬</p>
-      <small>10 minutes ago</small>
-    </div>
-  </div>
+<div class="avatar">
+A
+</div>
 
-  <div class="notification">
-    <div class="avatar">S</div>
-    <div>
-      <p><b>Sarah</b> started following you</p>
-      <small>30 minutes ago</small>
-    </div>
-  </div>
+<div>
+
+<p>
+<b>Alice</b>
+liked your post 👍
+</p>
+
+<small>
+2 minutes ago
+</small>
+
+</div>
+
+</div>
+
+
+<div class="notification">
+
+<div class="avatar">
+M
+</div>
+
+<div>
+
+<p>
+<b>Mike</b>
+sent you a message 💬
+</p>
+
+<small>
+10 minutes ago
+</small>
+
+</div>
+
+</div>
+
+
+<div class="notification">
+
+<div class="avatar">
+S
+</div>
+
+<div>
+
+<p>
+<b>Sarah</b>
+started following you
+</p>
+
+<small>
+30 minutes ago
+</small>
+
+</div>
+
+</div>
 
 </div>
 
@@ -940,39 +1606,75 @@ body.dark .icon-btn{
 
 
 <!-- PROFILE -->
-<section id="profile" class="page">
+
+<section
+  id="profile"
+  class="page">
 
 <div class="card">
 
-  <div class="profile-cover"></div>
+<div class="profile-cover">
+</div>
 
-  <div class="profile-info">
+<div class="profile-info">
 
-    <div class="profile-big">J</div>
+<div
+  class="profile-big"
+  id="profileAvatar">
+J
+</div>
 
-    <h2>Jaylosy</h2>
+<h2 id="profileName">
+Jaylosy
+</h2>
 
-    <p>@jaylosy · JB CHAT</p>
+<p id="profileEmail">
+@jaylosy · JB CHAT
+</p>
 
-    <p>Connecting people and sharing moments 🚀</p>
+<p>
+Connecting people and sharing moments 🚀
+</p>
 
-    <div class="profile-buttons">
-      <button class="primary" onclick="editProfile()">Edit profile</button>
-      <button class="secondary" onclick="shareProfile()">Share profile</button>
-    </div>
+<div class="profile-buttons">
 
-  </div>
+<button
+  class="primary"
+  onclick="editProfile()">
+Edit profile
+</button>
+
+<button
+  class="secondary"
+  onclick="shareProfile()">
+Share profile
+</button>
+
+</div>
+
+</div>
 
 </div>
 
 
 <div class="card card-padding">
 
-  <h3>About</h3>
+<h3>
+About
+</h3>
 
-  <p style="margin-top:10px;color:var(--muted);">
-    Welcome to my JB CHAT profile.
-  </p>
+<p
+  style="margin-top:10px;color:var(--muted);">
+Welcome to my JB CHAT profile.
+</p>
+
+<br>
+
+<button
+  class="secondary"
+  onclick="logoutUser()">
+🚪 Logout
+</button>
 
 </div>
 
@@ -981,47 +1683,110 @@ body.dark .icon-btn{
 </main>
 
 
+<!-- RIGHT SIDEBAR -->
+
 <aside class="rightbar">
 
 <div class="right-card">
 
-<h3>People you may know</h3>
+<h3>
+People you may know
+</h3>
+
 
 <div class="person">
-  <div class="avatar">A</div>
-  <div class="person-info">
-    <strong>Alice</strong>
-    <small>New user</small>
-  </div>
-  <button class="follow" onclick="follow(this)">Follow</button>
+
+<div class="avatar">
+A
 </div>
+
+<div class="person-info">
+
+<strong>
+Alice
+</strong>
+
+<small>
+New user
+</small>
+
+</div>
+
+<button
+  class="follow"
+  onclick="follow(this)">
+Follow
+</button>
+
+</div>
+
 
 <div class="person">
-  <div class="avatar">M</div>
-  <div class="person-info">
-    <strong>Mike</strong>
-    <small>New user</small>
-  </div>
-  <button class="follow" onclick="follow(this)">Follow</button>
+
+<div class="avatar">
+M
 </div>
+
+<div class="person-info">
+
+<strong>
+Mike
+</strong>
+
+<small>
+New user
+</small>
+
+</div>
+
+<button
+  class="follow"
+  onclick="follow(this)">
+Follow
+</button>
+
+</div>
+
 
 <div class="person">
-  <div class="avatar">S</div>
-  <div class="person-info">
-    <strong>Sarah</strong>
-    <small>New user</small>
-  </div>
-  <button class="follow" onclick="follow(this)">Follow</button>
+
+<div class="avatar">
+S
+</div>
+
+<div class="person-info">
+
+<strong>
+Sarah
+</strong>
+
+<small>
+New user
+</small>
+
+</div>
+
+<button
+  class="follow"
+  onclick="follow(this)">
+Follow
+</button>
+
 </div>
 
 </div>
+
 
 <div class="right-card">
 
-<h3>JB CHAT</h3>
+<h3>
+JB CHAT
+</h3>
 
-<p style="color:var(--muted);line-height:1.5;">
-Connect with friends, send messages and share your moments.
+<p
+  style="color:var(--muted);line-height:1.5;">
+Connect with friends, send messages
+and share your moments.
 </p>
 
 </div>
@@ -1032,29 +1797,67 @@ Connect with friends, send messages and share your moments.
 
 
 <!-- MOBILE NAV -->
+
 <nav class="bottom-nav">
-  <button onclick="showPage('home')">🏠<small>Home</small></button>
-  <button onclick="showPage('chats')">💬<small>Chats</small></button>
-  <button onclick="showPage('search')">🔎<small>Search</small></button>
-  <button onclick="showPage('notifications')">🔔<small>Alerts</small></button>
-  <button onclick="showPage('profile')">👤<small>Profile</small></button>
+
+<button onclick="showPage('home')">
+🏠
+<small>Home</small>
+</button>
+
+<button onclick="showPage('chats')">
+💬
+<small>Chats</small>
+</button>
+
+<button onclick="showPage('search')">
+🔎
+<small>Search</small>
+</button>
+
+<button onclick="showPage('notifications')">
+🔔
+<small>Alerts</small>
+</button>
+
+<button onclick="showPage('profile')">
+👤
+<small>Profile</small>
+</button>
+
 </nav>
 
 
 <!-- POST MODAL -->
-<div id="postModal" class="modal">
+
+<div
+  id="postModal"
+  class="modal">
 
 <div class="modal-box">
 
-<h2>Create post</h2>
+<h2>
+Create post
+</h2>
 
-<textarea id="postText"
-placeholder="What's on your mind?"></textarea>
+<textarea
+  id="postText"
+  placeholder="What's on your mind?">
+</textarea>
 
 <div class="modal-actions">
-  <button class="secondary" onclick="closePostModal()">Cancel</button>
-  <button class="primary" onclick="createPost()">Post</button>
-</div>
+
+<button
+  class="secondary"
+  onclick="closePostModal()">
+Cancel
+</button>
+
+<button
+  class="primary"
+  onclick="createPost()">
+Post
+</button>
 
 </div>
 
@@ -1062,40 +1865,657 @@ placeholder="What's on your mind?"></textarea>
 
 </div>
 
-
-<script>
-
-let currentChat = "";
+</div>
 
 
-/* PAGE NAVIGATION */
-function showPage(page,button){
+<!-- ==================================================
+     FIREBASE
+================================================== -->
+
+<script type="module">
+
+import {
+  initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  sendEmailVerification,
+  sendPasswordResetEmail,
+  onAuthStateChanged,
+  signOut,
+  updateProfile
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+/* ==================================================
+   FIREBASE CONFIG
+   SHIRA AHA CONFIG YAWE
+================================================== */
+
+const firebaseConfig = {
+
+  apiKey:
+    "YOUR_API_KEY",
+
+  authDomain:
+    "YOUR_PROJECT.firebaseapp.com",
+
+  projectId:
+    "YOUR_PROJECT_ID",
+
+  storageBucket:
+    "YOUR_PROJECT.firebasestorage.app",
+
+  messagingSenderId:
+    "YOUR_MESSAGING_SENDER_ID",
+
+  appId:
+    "YOUR_APP_ID"
+
+};
+
+
+/* INITIALIZE */
+
+const app =
+  initializeApp(firebaseConfig);
+
+const auth =
+  getAuth(app);
+
+const googleProvider =
+  new GoogleAuthProvider();
+
+
+/* ==================================================
+   ELEMENTS
+================================================== */
+
+const authScreen =
+  document.getElementById("authScreen");
+
+const verifyScreen =
+  document.getElementById("verifyScreen");
+
+const mainApp =
+  document.getElementById("mainApp");
+
+const authMessage =
+  document.getElementById("authMessage");
+
+
+/* ==================================================
+   MESSAGE
+================================================== */
+
+function showAuthMessage(message,type="error"){
+
+  authMessage.textContent=message;
+
+  authMessage.className=
+    "auth-message "+type;
+
+}
+
+
+/* ==================================================
+   AUTH FORM SWITCH
+================================================== */
+
+window.showAuthForm=function(type){
+
+  const loginForm =
+    document.getElementById("loginForm");
+
+  const registerForm =
+    document.getElementById("registerForm");
+
+  const loginTab =
+    document.getElementById("loginTab");
+
+  const registerTab =
+    document.getElementById("registerTab");
+
+  authMessage.className="auth-message";
+
+  if(type==="login"){
+
+    loginForm.classList.remove("hidden");
+
+    registerForm.classList.add("hidden");
+
+    loginTab.classList.add("active");
+
+    registerTab.classList.remove("active");
+
+  }else{
+
+    loginForm.classList.add("hidden");
+
+    registerForm.classList.remove("hidden");
+
+    loginTab.classList.remove("active");
+
+    registerTab.classList.add("active");
+
+  }
+
+};
+
+
+/* ==================================================
+   REGISTER
+================================================== */
+
+window.registerUser=async function(event){
+
+  event.preventDefault();
+
+  const name =
+    document.getElementById("registerName")
+    .value.trim();
+
+  const email =
+    document.getElementById("registerEmail")
+    .value.trim();
+
+  const password =
+    document.getElementById("registerPassword")
+    .value;
+
+  const password2 =
+    document.getElementById("registerPassword2")
+    .value;
+
+
+  if(password!==password2){
+
+    showAuthMessage(
+      "Passwords do not match."
+    );
+
+    return;
+  }
+
+
+  if(password.length<6){
+
+    showAuthMessage(
+      "Password must contain at least 6 characters."
+    );
+
+    return;
+  }
+
+
+  try{
+
+    const credential =
+      await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+
+    await updateProfile(
+      credential.user,
+      {
+        displayName:name
+      }
+    );
+
+
+    await sendEmailVerification(
+      credential.user
+    );
+
+
+    document.getElementById(
+      "verifyEmail"
+    ).textContent=email;
+
+
+    showVerification();
+
+
+  }catch(error){
+
+    showAuthMessage(
+      firebaseError(error.code)
+    );
+
+  }
+
+};
+
+
+/* ==================================================
+   LOGIN
+================================================== */
+
+window.loginUser=async function(event){
+
+  event.preventDefault();
+
+  const email =
+    document.getElementById("loginEmail")
+    .value.trim();
+
+  const password =
+    document.getElementById("loginPassword")
+    .value;
+
+
+  try{
+
+    const credential =
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+
+    if(!credential.user.emailVerified){
+
+      document.getElementById(
+        "verifyEmail"
+      ).textContent=credential.user.email;
+
+      showVerification();
+
+      return;
+
+    }
+
+
+    showApp(
+      credential.user
+    );
+
+
+  }catch(error){
+
+    showAuthMessage(
+      firebaseError(error.code)
+    );
+
+  }
+
+};
+
+
+/* ==================================================
+   GOOGLE LOGIN
+================================================== */
+
+window.loginWithGoogle=async function(){
+
+  try{
+
+    const result =
+      await signInWithPopup(
+        auth,
+        googleProvider
+      );
+
+    showApp(result.user);
+
+  }catch(error){
+
+    showAuthMessage(
+      firebaseError(error.code)
+    );
+
+  }
+
+};
+
+
+/* ==================================================
+   RESET PASSWORD
+================================================== */
+
+window.resetPassword=async function(){
+
+  const email =
+    document.getElementById("loginEmail")
+    .value.trim();
+
+
+  if(!email){
+
+    showAuthMessage(
+      "Enter your email first."
+    );
+
+    return;
+  }
+
+
+  try{
+
+    await sendPasswordResetEmail(
+      auth,
+      email
+    );
+
+    showAuthMessage(
+      "Password reset email sent.",
+      "success"
+    );
+
+  }catch(error){
+
+    showAuthMessage(
+      firebaseError(error.code)
+    );
+
+  }
+
+};
+
+
+/* ==================================================
+   VERIFY SCREEN
+================================================== */
+
+function showVerification(){
+
+  authScreen.classList.add("hidden");
+
+  mainApp.classList.add("hidden");
+
+  verifyScreen.classList.remove("hidden");
+
+}
+
+
+window.checkVerification=async function(){
+
+  if(!auth.currentUser) return;
+
+  await auth.currentUser.reload();
+
+  if(auth.currentUser.emailVerified){
+
+    showApp(auth.currentUser);
+
+  }else{
+
+    alert(
+      "Your email is not verified yet."
+    );
+
+  }
+
+};
+
+
+window.sendVerificationAgain=async function(){
+
+  if(!auth.currentUser) return;
+
+  try{
+
+    await sendEmailVerification(
+      auth.currentUser
+    );
+
+    alert(
+      "Verification email sent again."
+    );
+
+  }catch(error){
+
+    alert(
+      firebaseError(error.code)
+    );
+
+  }
+
+};
+
+
+/* ==================================================
+   SHOW APP
+================================================== */
+
+function showApp(user){
+
+  authScreen.classList.add("hidden");
+
+  verifyScreen.classList.add("hidden");
+
+  mainApp.classList.remove("hidden");
+
+
+  const name =
+    user.displayName ||
+    user.email.split("@")[0] ||
+    "Jaylosy";
+
+  const letter =
+    name.charAt(0).toUpperCase();
+
+
+  document.getElementById(
+    "profileName"
+  ).textContent=name;
+
+
+  document.getElementById(
+    "profileEmail"
+  ).textContent=
+    user.email;
+
+
+  document.getElementById(
+    "profileAvatar"
+  ).textContent=letter;
+
+
+  document.getElementById(
+    "createAvatar"
+  ).textContent=letter;
+
+
+  document.getElementById(
+    "topAvatar"
+  ).textContent=letter;
+
+
+  document.getElementById(
+    "storyAvatar"
+  ).textContent=letter;
+
+}
+
+
+/* ==================================================
+   LOGOUT
+================================================== */
+
+window.logoutUser=async function(){
+
+  try{
+
+    await signOut(auth);
+
+    mainApp.classList.add("hidden");
+
+    verifyScreen.classList.add("hidden");
+
+    authScreen.classList.remove("hidden");
+
+    showAuthForm("login");
+
+  }catch(error){
+
+    alert(
+      firebaseError(error.code)
+    );
+
+  }
+
+};
+
+
+/* ==================================================
+   AUTH STATE
+================================================== */
+
+onAuthStateChanged(
+  auth,
+  user=>{
+
+    if(!user){
+
+      mainApp.classList.add("hidden");
+
+      verifyScreen.classList.add("hidden");
+
+      authScreen.classList.remove("hidden");
+
+      return;
+
+    }
+
+
+    if(
+      user.providerData.some(
+        provider =>
+        provider.providerId==="google.com"
+      )
+    ){
+
+      showApp(user);
+
+      return;
+
+    }
+
+
+    if(user.emailVerified){
+
+      showApp(user);
+
+    }else{
+
+      document.getElementById(
+        "verifyEmail"
+      ).textContent=user.email;
+
+      showVerification();
+
+    }
+
+  }
+);
+
+
+/* ==================================================
+   FIREBASE ERRORS
+================================================== */
+
+function firebaseError(code){
+
+  const errors={
+
+    "auth/invalid-email":
+      "Email address is not valid.",
+
+    "auth/user-not-found":
+      "No account was found with this email.",
+
+    "auth/wrong-password":
+      "Incorrect password.",
+
+    "auth/invalid-credential":
+      "Email or password is incorrect.",
+
+    "auth/email-already-in-use":
+      "This email already has an account.",
+
+    "auth/weak-password":
+      "Password is too weak.",
+
+    "auth/popup-closed-by-user":
+      "Google login was cancelled.",
+
+    "auth/popup-blocked":
+      "Your browser blocked the Google login window.",
+
+    "auth/network-request-failed":
+      "Network error. Check your internet connection."
+
+  };
+
+  return errors[code] ||
+    "Something went wrong. Please try again.";
+
+}
+
+
+/* ==================================================
+   PAGE NAVIGATION
+================================================== */
+
+window.showPage=function(page,button){
 
   document.querySelectorAll(".page")
-    .forEach(p=>p.classList.remove("active"));
+    .forEach(
+      p=>p.classList.remove("active")
+    );
 
-  const target=document.getElementById(page);
+
+  const target =
+    document.getElementById(page);
+
 
   if(target){
+
     target.classList.add("active");
+
   }
+
 
   document.querySelectorAll(".menu button")
-    .forEach(b=>b.classList.remove("active"));
+    .forEach(
+      b=>b.classList.remove("active")
+    );
+
 
   if(button){
+
     button.classList.add("active");
+
   }
+
 
   window.scrollTo({
     top:0,
     behavior:"smooth"
   });
-}
+
+};
 
 
-/* DARK MODE */
-function toggleDark(){
+/* ==================================================
+   DARK MODE
+================================================== */
+
+window.toggleDark=function(){
 
   document.body.classList.toggle("dark");
 
@@ -1104,38 +2524,90 @@ function toggleDark(){
     document.body.classList.contains("dark")
   );
 
-}
+};
 
-if(localStorage.getItem("jbchat-dark")==="true"){
+
+if(
+  localStorage.getItem("jbchat-dark")==="true"
+){
+
   document.body.classList.add("dark");
+
 }
 
 
-/* POST MODAL */
-function openPostModal(){
-  document.getElementById("postModal").classList.add("show");
-  document.getElementById("postText").focus();
-}
+/* ==================================================
+   POST MODAL
+================================================== */
 
-function closePostModal(){
-  document.getElementById("postModal").classList.remove("show");
-  document.getElementById("postText").value="";
-}
+window.openPostModal=function(){
+
+  document
+    .getElementById("postModal")
+    .classList.add("show");
+
+  document
+    .getElementById("postText")
+    .focus();
+
+};
 
 
-/* CREATE POST */
-function createPost(){
+window.closePostModal=function(){
 
-  const text=document.getElementById("postText").value.trim();
+  document
+    .getElementById("postModal")
+    .classList.remove("show");
+
+  document
+    .getElementById("postText")
+    .value="";
+
+};
+
+
+/* ==================================================
+   CREATE POST
+================================================== */
+
+window.createPost=function(){
+
+  const text =
+    document
+      .getElementById("postText")
+      .value.trim();
+
 
   if(!text){
-    alert("Write something first.");
+
+    alert(
+      "Write something first."
+    );
+
     return;
+
   }
 
-  const post=document.createElement("article");
+
+  const user =
+    auth.currentUser;
+
+
+  const name =
+    user?.displayName ||
+    "Jaylosy";
+
+
+  const letter =
+    name.charAt(0).toUpperCase();
+
+
+  const post =
+    document.createElement("article");
+
 
   post.className="card";
+
 
   post.innerHTML=`
 
@@ -1143,14 +2615,27 @@ function createPost(){
 
       <div class="post-head">
 
-        <div class="avatar">J</div>
-
-        <div class="post-info">
-          <strong>Jaylosy</strong>
-          <small>Just now · 🌎</small>
+        <div class="avatar">
+          ${escapeHTML(letter)}
         </div>
 
-        <button class="more">•••</button>
+        <div class="post-info">
+
+          <strong>
+            ${escapeHTML(name)}
+          </strong>
+
+          <small>
+            Just now · 🌎
+          </small>
+
+        </div>
+
+        <button
+          class="more"
+          onclick="postMenu()">
+          •••
+        </button>
 
       </div>
 
@@ -1159,39 +2644,78 @@ function createPost(){
       </div>
 
       <div class="post-stats">
-        <span>👍 <span class="like-count">0</span> likes</span>
-        <span>0 comments · 0 shares</span>
+
+        <span>
+          👍
+          <span class="like-count">0</span>
+          likes
+        </span>
+
+        <span>
+          0 comments · 0 shares
+        </span>
+
       </div>
 
       <div class="post-actions">
-        <button onclick="likePost(this)">♡ Like</button>
-        <button onclick="commentPost()">💬 Comment</button>
-        <button onclick="sharePost()">➤ Share</button>
+
+        <button
+          onclick="likePost(this)">
+          ♡ Like
+        </button>
+
+        <button
+          onclick="commentPost()">
+          💬 Comment
+        </button>
+
+        <button
+          onclick="sharePost()">
+          ➤ Share
+        </button>
+
       </div>
 
     </div>
   `;
 
-  document.getElementById("posts").prepend(post);
+
+  document
+    .getElementById("posts")
+    .prepend(post);
+
 
   closePostModal();
-}
+
+};
 
 
-/* LIKE */
-function likePost(button){
+/* ==================================================
+   LIKE
+================================================== */
 
-  const post=button.closest(".card");
+window.likePost=function(button){
 
-  const count=post.querySelector(".like-count");
+  const post =
+    button.closest(".card");
 
-  let number=parseInt(count.textContent) || 0;
 
-  if(button.classList.contains("liked")){
+  const count =
+    post.querySelector(".like-count");
+
+
+  let number =
+    parseInt(count.textContent) || 0;
+
+
+  if(
+    button.classList.contains("liked")
+  ){
 
     number--;
 
     button.classList.remove("liked");
+
     button.innerHTML="♡ Like";
 
   }else{
@@ -1199,36 +2723,59 @@ function likePost(button){
     number++;
 
     button.classList.add("liked");
+
     button.innerHTML="♥ Liked";
 
   }
 
+
   count.textContent=number;
-}
+
+};
 
 
-/* COMMENT */
-function commentPost(){
+/* ==================================================
+   COMMENT
+================================================== */
 
-  const comment=prompt("Write your comment:");
+window.commentPost=function(){
 
-  if(comment && comment.trim()){
+  const comment =
+    prompt(
+      "Write your comment:"
+    );
 
-    alert("Comment added: "+comment.trim());
+
+  if(
+    comment &&
+    comment.trim()
+  ){
+
+    alert(
+      "Comment added: "+
+      comment.trim()
+    );
 
   }
 
-}
+};
 
 
-/* SHARE */
-function sharePost(){
+/* ==================================================
+   SHARE
+================================================== */
+
+window.sharePost=function(){
 
   if(navigator.share){
 
     navigator.share({
+
       title:"JB CHAT",
-      text:"Check this post on JB CHAT!"
+
+      text:
+        "Check this post on JB CHAT!"
+
     });
 
   }else{
@@ -1237,58 +2784,86 @@ function sharePost(){
       "Check this post on JB CHAT!"
     );
 
-    alert("Post link copied!");
+    alert(
+      "Post link copied!"
+    );
 
   }
 
-}
+};
 
 
-/* FOLLOW */
-function follow(button){
+/* ==================================================
+   FOLLOW
+================================================== */
 
-  if(button.textContent==="Follow"){
+window.follow=function(button){
+
+  if(
+    button.textContent.trim()==="Follow"
+  ){
 
     button.textContent="Following";
+
     button.style.background="#e4e6eb";
+
     button.style.color="#111";
 
   }else{
 
     button.textContent="Follow";
+
     button.style.background="";
+
     button.style.color="";
 
   }
 
-}
+};
 
 
-/* CHAT */
-function openChat(name,letter){
+/* ==================================================
+   CHAT
+================================================== */
 
-  currentChat=name;
+window.openChat=function(name,letter){
 
-  document.getElementById("chatWindow").style.display="block";
+  document.getElementById(
+    "chatWindow"
+  ).style.display="block";
 
-  document.getElementById("chatWindow").innerHTML=`
+
+  document.getElementById(
+    "chatWindow"
+  ).innerHTML=`
 
     <div class="chat-page">
 
       <div class="chat-header">
 
-        <div class="avatar">${letter}</div>
+        <div class="avatar">
+          ${letter}
+        </div>
 
         <div>
-          <strong>${name}</strong>
-          <small style="display:block;color:var(--muted);">
+
+          <strong>
+            ${name}
+          </strong>
+
+          <small
+            style="display:block;color:var(--muted);">
             Online
           </small>
+
         </div>
 
       </div>
 
-      <div id="messages" class="messages">
+
+      <div
+        id="messages"
+        class="messages">
 
         <div class="msg them">
           Hello 👋
@@ -1300,15 +2875,22 @@ function openChat(name,letter){
 
       </div>
 
+
       <div class="chat-input">
 
         <input
           id="messageInput"
           placeholder="Write a message..."
-          onkeydown="if(event.key==='Enter')sendMessage()"
-        >
+          onkeydown="
+            if(event.key==='Enter')
+            sendMessage()
+          ">
 
-        <button class="send" onclick="sendMessage()">➤</button>
+        <button
+          class="send"
+          onclick="sendMessage()">
+          ➤
+        </button>
 
       </div>
 
@@ -1316,47 +2898,90 @@ function openChat(name,letter){
 
   `;
 
-}
+};
 
 
-function sendMessage(){
+/* ==================================================
+   SEND MESSAGE
+================================================== */
 
-  const input=document.getElementById("messageInput");
+window.sendMessage=function(){
 
-  if(!input || !input.value.trim()) return;
+  const input =
+    document.getElementById(
+      "messageInput"
+    );
 
-  const messages=document.getElementById("messages");
 
-  const message=document.createElement("div");
+  if(
+    !input ||
+    !input.value.trim()
+  ){
+
+    return;
+
+  }
+
+
+  const messages =
+    document.getElementById(
+      "messages"
+    );
+
+
+  const message =
+    document.createElement("div");
+
 
   message.className="msg me";
 
-  message.textContent=input.value.trim();
+  message.textContent=
+    input.value.trim();
+
 
   messages.appendChild(message);
 
+
   input.value="";
 
-  messages.scrollTop=messages.scrollHeight;
 
-}
+  messages.scrollTop=
+    messages.scrollHeight;
+
+};
 
 
-/* SEARCH */
-function searchUsers(value){
+/* ==================================================
+   SEARCH
+================================================== */
 
-  const q=value.trim().toLowerCase();
+window.searchUsers=function(value){
 
-  const results=document.getElementById("searchResults");
+  const q =
+    value.trim().toLowerCase();
+
+
+  const results =
+    document.getElementById(
+      "searchResults"
+    );
+
 
   if(!results) return;
 
+
   const people=[
+
     ["Alice","A"],
+
     ["Mike","M"],
+
     ["Sarah","S"],
+
     ["Jaylosy","J"]
+
   ];
+
 
   if(!q){
 
@@ -1366,102 +2991,199 @@ function searchUsers(value){
 
   }
 
-  const found=people.filter(
-    p=>p[0].toLowerCase().includes(q)
-  );
+
+  const found =
+    people.filter(
+      p =>
+      p[0]
+      .toLowerCase()
+      .includes(q)
+    );
+
 
   if(!found.length){
 
     results.innerHTML=`
+
       <div class="card card-padding">
         No users found.
       </div>
+
     `;
 
     return;
 
   }
 
-  results.innerHTML=found.map(p=>`
 
-    <div class="card card-padding">
+  results.innerHTML=
+    found.map(
+      p=>`
 
-      <div class="person">
+      <div class="card card-padding">
 
-        <div class="avatar">${p[1]}</div>
+        <div class="person">
 
-        <div class="person-info">
-          <strong>${p[0]}</strong>
-          <small>JB CHAT user</small>
+          <div class="avatar">
+            ${p[1]}
+          </div>
+
+          <div class="person-info">
+
+            <strong>
+              ${p[0]}
+            </strong>
+
+            <small>
+              JB CHAT user
+            </small>
+
+          </div>
+
+          <button
+            class="follow"
+            onclick="follow(this)">
+            Follow
+          </button>
+
         </div>
-
-        <button class="follow"
-                onclick="follow(this)">
-          Follow
-        </button>
 
       </div>
 
-    </div>
+      `
+    ).join("");
 
-  `).join("");
-
-}
+};
 
 
-/* PROFILE */
-function editProfile(){
+/* ==================================================
+   EDIT PROFILE
+================================================== */
 
-  const name=prompt(
-    "Enter your display name:",
-    "Jaylosy"
-  );
+window.editProfile=function(){
 
-  if(name && name.trim()){
+  const current =
+    document.getElementById(
+      "profileName"
+    ).textContent;
 
-    document.querySelector(
-      "#profile h2"
-    ).textContent=name.trim();
+
+  const name =
+    prompt(
+      "Enter your display name:",
+      current
+    );
+
+
+  if(
+    name &&
+    name.trim()
+  ){
+
+    const newName =
+      name.trim();
+
+
+    document.getElementById(
+      "profileName"
+    ).textContent=newName;
+
+
+    const letter =
+      newName.charAt(0)
+      .toUpperCase();
+
+
+    document.getElementById(
+      "profileAvatar"
+    ).textContent=letter;
+
+
+    document.getElementById(
+      "createAvatar"
+    ).textContent=letter;
+
+
+    document.getElementById(
+      "topAvatar"
+    ).textContent=letter;
+
+
+    document.getElementById(
+      "storyAvatar"
+    ).textContent=letter;
+
+
+    if(auth.currentUser){
+
+      updateProfile(
+        auth.currentUser,
+        {
+          displayName:newName
+        }
+      );
+
+    }
 
   }
 
-}
+};
 
 
-function shareProfile(){
+/* ==================================================
+   SHARE PROFILE
+================================================== */
 
-  const text="Check my profile on JB CHAT!";
+window.shareProfile=function(){
+
+  const text =
+    "Check my profile on JB CHAT!";
+
 
   if(navigator.share){
 
     navigator.share({
+
       title:"JB CHAT",
+
       text:text
+
     });
 
   }else{
 
     navigator.clipboard?.writeText(text);
 
-    alert("Profile link copied!");
+    alert(
+      "Profile link copied!"
+    );
 
   }
 
-}
+};
 
 
-/* MORE MENU */
-function postMenu(){
+/* ==================================================
+   MORE MENU
+================================================== */
 
-  alert("Post options coming soon.");
+window.postMenu=function(){
 
-}
+  alert(
+    "Post options coming soon."
+  );
+
+};
 
 
-/* SECURITY */
+/* ==================================================
+   SECURITY
+================================================== */
+
 function escapeHTML(value){
 
-  const div=document.createElement("div");
+  const div =
+    document.createElement("div");
 
   div.textContent=value;
 
@@ -1470,19 +3192,26 @@ function escapeHTML(value){
 }
 
 
-/* CLOSE MODAL */
-document.getElementById("postModal")
-  .addEventListener("click",function(e){
+/* ==================================================
+   CLOSE MODAL
+================================================== */
 
-    if(e.target===this){
-      closePostModal();
+document
+  .getElementById("postModal")
+  .addEventListener(
+    "click",
+    function(e){
+
+      if(e.target===this){
+
+        closePostModal();
+
+      }
+
     }
-
-  });
+  );
 
 </script>
 
 </body>
 </html>
-```
-
