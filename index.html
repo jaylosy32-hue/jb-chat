@@ -2,3215 +2,1319 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#1877f2">
 <title>JB CHAT</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial,Helvetica,sans-serif;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
 :root{
-  --blue:#1877f2;
-  --bg:#f3f5f7;
-  --card:#fff;
-  --text:#111;
-  --muted:#6b7280;
-  --border:#e5e7eb;
-  --danger:#e53935;
+ --blue:#1877f2;
+ --blue2:#0d6efd;
+ --bg:#f0f2f5;
+ --card:#fff;
+ --text:#111827;
+ --muted:#6b7280;
+ --border:#e5e7eb;
+ --hover:#f3f4f6;
+ --danger:#ef4444;
 }
+body{background:var(--bg);color:var(--text);min-height:100vh}
+button,input,textarea{font:inherit}
+button{cursor:pointer;border:0}
+.app{min-height:100vh}
 
-body{
-  background:var(--bg);
-  color:var(--text);
-}
-
-button,input,textarea{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-  border:0;
-}
-
-.hidden{
-  display:none !important;
-}
-
-/* =========================
-   AUTH
-========================= */
-
-#authScreen{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:linear-gradient(135deg,#1877f2,#7c3aed);
-}
-
-.auth-box{
-  width:min(430px,100%);
-  background:#fff;
-  border-radius:20px;
-  padding:30px;
-  box-shadow:0 20px 60px rgba(0,0,0,.25);
-}
-
-.auth-logo{
-  text-align:center;
-  color:var(--blue);
-  font-size:34px;
-  font-weight:900;
-  margin-bottom:8px;
-}
-
-.auth-subtitle{
-  text-align:center;
-  color:#777;
-  margin-bottom:25px;
-}
-
-.auth-tabs{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:5px;
-  background:#f0f2f5;
-  padding:5px;
-  border-radius:10px;
-  margin-bottom:20px;
-}
-
-.auth-tabs button{
-  padding:11px;
-  border-radius:8px;
-  background:transparent;
-  font-weight:bold;
-}
-
-.auth-tabs button.active{
-  background:#fff;
-  color:var(--blue);
-  box-shadow:0 2px 6px rgba(0,0,0,.08);
-}
-
-.auth-form{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-.auth-form label{
-  font-size:13px;
-  font-weight:bold;
-}
-
-.auth-form input{
-  width:100%;
-  padding:13px;
-  border:1px solid #ddd;
-  border-radius:10px;
-  outline:none;
-}
-
-.auth-form input:focus{
-  border-color:var(--blue);
-}
-
-.auth-btn{
-  width:100%;
-  padding:13px;
-  background:var(--blue);
-  color:#fff;
-  border-radius:10px;
-  font-weight:bold;
-}
-
-.google-btn{
-  width:100%;
-  padding:13px;
-  background:#fff;
-  border:1px solid #ddd;
-  border-radius:10px;
-  font-weight:bold;
-}
-
-.divider{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin:16px 0;
-  color:#888;
-  font-size:13px;
-}
-
-.divider:before,
-.divider:after{
-  content:"";
-  flex:1;
-  height:1px;
-  background:#ddd;
-}
-
-.auth-message{
-  padding:10px;
-  border-radius:8px;
-  font-size:13px;
-  display:none;
-}
-
-.auth-message.error{
-  display:block;
-  background:#ffebee;
-  color:#c62828;
-}
-
-.auth-message.success{
-  display:block;
-  background:#e8f5e9;
-  color:#2e7d32;
-}
-
-.forgot{
-  background:none;
-  color:var(--blue);
-  font-size:13px;
-  text-align:right;
-}
-
-.verify-box{
-  text-align:center;
-}
-
-.verify-box h2{
-  margin-bottom:12px;
-}
-
-.verify-box p{
-  color:#666;
-  line-height:1.5;
-  margin-bottom:20px;
-}
-
-.verify-actions{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-/* =========================
-   APP
-========================= */
-
-.app{
-  min-height:100vh;
-}
-
-/* TOP BAR */
-
+/* TOP */
 .topbar{
-  height:64px;
-  background:#fff;
-  border-bottom:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 22px;
-  position:sticky;
-  top:0;
-  z-index:100;
+ height:64px;background:var(--card);border-bottom:1px solid var(--border);
+ display:flex;align-items:center;gap:20px;padding:0 22px;
+ position:sticky;top:0;z-index:1000
 }
-
-.logo{
-  font-size:24px;
-  font-weight:800;
-  color:var(--blue);
-  letter-spacing:-1px;
+.logo{font-size:25px;font-weight:900;color:var(--blue);white-space:nowrap}
+.top-search{
+ width:330px;background:var(--hover);border:0;outline:0;
+ border-radius:25px;padding:11px 17px
 }
-
-.search{
-  width:330px;
-  background:#f0f2f5;
-  border-radius:22px;
-  padding:10px 16px;
-  border:0;
-  outline:none;
-}
-
-.top-actions{
-  display:flex;
-  gap:8px;
-}
-
+.top-actions{margin-left:auto;display:flex;gap:8px}
 .icon-btn{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  background:#f0f2f5;
-  font-size:20px;
+ width:42px;height:42px;border-radius:50%;background:var(--hover);
+ font-size:19px
 }
-
-.icon-btn:hover{
-  background:#e2e5e9;
-}
+.icon-btn:hover{background:#e2e5e9}
 
 /* LAYOUT */
-
 .layout{
-  max-width:1250px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:230px minmax(0,650px) 260px;
-  gap:20px;
-  padding:20px;
+ max-width:1280px;margin:auto;display:grid;
+ grid-template-columns:220px minmax(0,650px) 270px;
+ gap:20px;padding:20px
 }
-
-/* LEFT */
-
-.sidebar{
-  position:sticky;
-  top:84px;
-  height:max-content;
-}
-
-.menu{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-
+.sidebar{position:sticky;top:84px;height:max-content}
+.menu{display:flex;flex-direction:column;gap:5px}
 .menu button{
-  text-align:left;
-  padding:13px 14px;
-  border-radius:10px;
-  background:transparent;
-  font-weight:600;
-  color:#333;
+ text-align:left;background:transparent;padding:13px 15px;
+ border-radius:10px;font-weight:700;color:var(--text)
+}
+.menu button:hover,.menu button.active{
+ background:#e7f0ff;color:var(--blue)
 }
 
-.menu button:hover,
-.menu button.active{
-  background:#e7f0ff;
-  color:var(--blue);
-}
-
-/* MAIN */
-
-.page{
-  display:none;
-}
-
-.page.active{
-  display:block;
-}
-
+/* PAGE */
+.page{display:none}
+.page.active{display:block}
 .card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:14px;
-  margin-bottom:16px;
-  overflow:hidden;
+ background:var(--card);border:1px solid var(--border);
+ border-radius:14px;margin-bottom:16px;overflow:hidden
 }
+.padding{padding:16px}
 
-.card-padding{
-  padding:16px;
-}
-
-/* STORY */
-
+/* STORIES */
 .stories{
-  display:flex;
-  gap:10px;
-  overflow-x:auto;
-  padding:14px;
+ display:flex;gap:10px;overflow-x:auto;padding:14px
 }
-
 .story{
-  min-width:95px;
-  height:145px;
-  border-radius:13px;
-  background:linear-gradient(145deg,#1877f2,#7c3aed);
-  color:#fff;
-  display:flex;
-  align-items:flex-end;
-  padding:10px;
-  font-weight:bold;
-  position:relative;
+ min-width:100px;height:145px;border-radius:13px;
+ background:linear-gradient(145deg,#1877f2,#7c3aed);
+ color:white;padding:10px;display:flex;align-items:flex-end;
+ position:relative;font-weight:bold
 }
-
-.story .avatar{
-  position:absolute;
-  top:9px;
-  left:9px;
-}
-
-/* CREATE POST */
-
-.create-row{
-  display:flex;
-  gap:12px;
-  align-items:center;
-}
-
+.story:nth-child(3){background:linear-gradient(145deg,#f97316,#ec4899)}
+.story:nth-child(4){background:linear-gradient(145deg,#10b981,#06b6d4)}
+.story:nth-child(5){background:linear-gradient(145deg,#8b5cf6,#ec4899)}
 .avatar{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  background:var(--blue);
-  color:white;
-  font-weight:bold;
-  flex:none;
+ width:42px;height:42px;border-radius:50%;
+ display:grid;place-items:center;background:var(--blue);
+ color:#fff;font-weight:800;flex:none
 }
+.story .avatar{position:absolute;top:9px;left:9px;border:2px solid white}
 
+/* CREATE */
+.create-row{display:flex;align-items:center;gap:12px}
 .fake-input{
-  flex:1;
-  background:#f0f2f5;
-  border-radius:22px;
-  padding:12px 16px;
-  color:#777;
-  cursor:pointer;
+ flex:1;background:var(--hover);border-radius:24px;
+ padding:12px 17px;color:#777;cursor:pointer
 }
-
+.fake-input:hover{background:#e8eaed}
 .post-tools{
-  display:flex;
-  justify-content:space-around;
-  border-top:1px solid var(--border);
-  margin-top:14px;
-  padding-top:10px;
+ display:grid;grid-template-columns:repeat(3,1fr);
+ border-top:1px solid var(--border);margin-top:14px;padding-top:10px
 }
+.post-tools button{background:transparent;padding:10px;border-radius:8px;color:#555}
+.post-tools button:hover{background:var(--hover)}
 
-.post-tools button{
-  background:transparent;
-  padding:8px 20px;
-  border-radius:8px;
-  color:#555;
-}
-
-.post-tools button:hover{
-  background:#f0f2f5;
-}
-
-/* POST */
-
-.post-head{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.post-info{
-  flex:1;
-}
-
-.post-info strong{
-  display:block;
-}
-
-.post-info small{
-  color:var(--muted);
-}
-
-.more{
-  background:transparent;
-  font-size:22px;
-}
-
-.post-text{
-  padding:14px 0;
-  line-height:1.5;
-}
-
+/* POSTS */
+.post-head{display:flex;align-items:center;gap:10px}
+.post-info{flex:1}
+.post-info strong{display:block}
+.post-info small{color:var(--muted)}
+.more{background:transparent;font-size:20px;padding:5px}
+.post-text{padding:14px 0;line-height:1.55;word-wrap:break-word}
 .post-image{
-  width:100%;
-  min-height:250px;
-  display:grid;
-  place-items:center;
-  background:linear-gradient(135deg,#1877f2,#8b5cf6);
-  color:white;
-  font-size:42px;
-  font-weight:800;
+ width:100%;height:280px;display:grid;place-items:center;
+ background:linear-gradient(135deg,#1877f2,#8b5cf6);
+ color:white;font-size:42px;font-weight:900
 }
-
 .post-stats{
-  display:flex;
-  justify-content:space-between;
-  color:var(--muted);
-  padding:10px 0;
-  border-bottom:1px solid var(--border);
+ display:flex;justify-content:space-between;color:var(--muted);
+ padding:10px 0;border-bottom:1px solid var(--border)
 }
-
-.post-actions{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-}
-
+.post-actions{display:grid;grid-template-columns:repeat(3,1fr)}
 .post-actions button{
-  background:transparent;
-  padding:11px;
-  color:#555;
-  font-weight:600;
+ background:transparent;padding:12px;color:#555;font-weight:700
 }
-
-.post-actions button:hover{
-  background:#f0f2f5;
-}
-
-.post-actions .liked{
-  color:#1877f2;
-}
+.post-actions button:hover{background:var(--hover)}
+.post-actions button.liked{color:var(--blue)}
 
 /* RIGHT */
-
 .right-card{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:16px;
-  margin-bottom:15px;
+ background:var(--card);border:1px solid var(--border);
+ border-radius:14px;padding:16px;margin-bottom:16px
 }
-
-.right-card h3{
-  margin-bottom:14px;
-}
-
-.person{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  margin:12px 0;
-}
-
-.person-info{
-  flex:1;
-}
-
-.person-info strong{
-  display:block;
-  font-size:14px;
-}
-
-.person-info small{
-  color:var(--muted);
-}
-
+.right-card h3{margin-bottom:14px}
+.person{display:flex;align-items:center;gap:9px;margin:13px 0}
+.person-info{flex:1}
+.person-info strong{display:block;font-size:14px}
+.person-info small{color:var(--muted)}
 .follow{
-  background:var(--blue);
-  color:white;
-  border-radius:7px;
-  padding:7px 10px;
-  font-size:12px;
+ background:var(--blue);color:#fff;border-radius:7px;
+ padding:7px 10px;font-size:12px;font-weight:bold
 }
+.following{background:#e4e6eb;color:#111}
 
 /* CHAT */
-
-.chat-list{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:14px;
-  overflow:hidden;
-}
-
+.chat-list{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
 .chat-item{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:15px;
-  border-bottom:1px solid var(--border);
-  cursor:pointer;
+ display:flex;align-items:center;gap:12px;padding:15px;
+ border-bottom:1px solid var(--border);cursor:pointer
 }
-
-.chat-item:hover{
-  background:#f7f8fa;
-}
-
-.chat-content{
-  flex:1;
-}
-
-.chat-content strong{
-  display:block;
-}
-
-.chat-content small{
-  color:var(--muted);
-}
-
+.chat-item:hover{background:var(--hover)}
+.chat-content{flex:1}
+.chat-content strong{display:block}
+.chat-content small{color:var(--muted)}
 .chat-page{
-  height:600px;
-  display:flex;
-  flex-direction:column;
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:14px;
-  overflow:hidden;
+ height:620px;display:flex;flex-direction:column;
+ background:var(--card);border:1px solid var(--border);
+ border-radius:14px;overflow:hidden
 }
-
 .chat-header{
-  padding:15px;
-  border-bottom:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  gap:10px;
+ padding:14px;border-bottom:1px solid var(--border);
+ display:flex;align-items:center;gap:10px
 }
-
-.messages{
-  flex:1;
-  padding:18px;
-  overflow:auto;
-  background:#f7f8fa;
-}
-
+.messages{flex:1;padding:18px;overflow:auto;background:#f7f8fa}
 .msg{
-  max-width:70%;
-  padding:10px 13px;
-  border-radius:16px;
-  margin-bottom:9px;
-  line-height:1.4;
+ max-width:72%;padding:10px 14px;border-radius:17px;
+ margin-bottom:9px;line-height:1.4;word-break:break-word
 }
-
 .msg.me{
-  margin-left:auto;
-  background:var(--blue);
-  color:white;
-  border-bottom-right-radius:4px;
+ margin-left:auto;background:var(--blue);color:#fff;
+ border-bottom-right-radius:4px
 }
-
-.msg.them{
-  background:#e5e7eb;
-  border-bottom-left-radius:4px;
-}
-
+.msg.them{background:#e5e7eb;border-bottom-left-radius:4px}
 .chat-input{
-  display:flex;
-  gap:8px;
-  padding:12px;
-  border-top:1px solid var(--border);
+ display:flex;gap:8px;padding:12px;border-top:1px solid var(--border)
 }
-
 .chat-input input{
-  flex:1;
-  border:0;
-  outline:none;
-  background:#f0f2f5;
-  border-radius:22px;
-  padding:11px 15px;
+ flex:1;border:0;outline:0;background:var(--hover);
+ border-radius:23px;padding:12px 15px
 }
-
 .send{
-  width:45px;
-  height:45px;
-  border-radius:50%;
-  background:var(--blue);
-  color:white;
+ width:45px;height:45px;border-radius:50%;
+ background:var(--blue);color:#fff
 }
 
 /* PROFILE */
-
 .profile-cover{
-  height:180px;
-  background:linear-gradient(135deg,#1877f2,#7c3aed);
+ height:190px;background:linear-gradient(135deg,#1877f2,#7c3aed)
 }
-
-.profile-info{
-  padding:0 20px 20px;
-  position:relative;
-}
-
+.profile-info{padding:0 20px 20px;position:relative}
 .profile-big{
-  width:90px;
-  height:90px;
-  border-radius:50%;
-  background:#111;
-  color:#fff;
-  display:grid;
-  place-items:center;
-  font-size:28px;
-  font-weight:bold;
-  border:5px solid white;
-  margin-top:-45px;
+ width:95px;height:95px;border-radius:50%;background:#111;color:#fff;
+ display:grid;place-items:center;font-size:30px;font-weight:bold;
+ border:5px solid white;margin-top:-47px
 }
-
-.profile-info h2{
-  margin-top:8px;
-}
-
-.profile-info p{
-  color:var(--muted);
-  margin-top:5px;
-}
-
-.profile-buttons{
-  display:flex;
-  gap:8px;
-  margin-top:15px;
-}
-
-.primary{
-  background:var(--blue);
-  color:white;
-  padding:10px 16px;
-  border-radius:8px;
-}
-
-.secondary{
-  background:#e4e6eb;
-  color:#111;
-  padding:10px 16px;
-  border-radius:8px;
-}
+.profile-info h2{margin-top:8px}
+.profile-info p{color:var(--muted);margin-top:5px}
+.profile-buttons{display:flex;gap:8px;margin-top:15px}
+.primary{background:var(--blue);color:#fff;padding:10px 16px;border-radius:8px}
+.secondary{background:#e4e6eb;color:#111;padding:10px 16px;border-radius:8px}
 
 /* NOTIFICATIONS */
-
 .notification{
-  display:flex;
-  gap:12px;
-  padding:15px;
-  border-bottom:1px solid var(--border);
+ display:flex;gap:12px;padding:15px;border-bottom:1px solid var(--border)
 }
-
-.notification p{
-  line-height:1.4;
-}
-
-.notification small{
-  color:var(--muted);
-}
+.notification p{line-height:1.4}
+.notification small{color:var(--muted)}
 
 /* SEARCH */
-
-.search-box{
-  display:flex;
-  gap:8px;
-  margin-bottom:15px;
-}
-
+.search-box{display:flex;gap:8px}
 .search-box input{
-  flex:1;
-  padding:13px;
-  border:1px solid var(--border);
-  border-radius:10px;
-  outline:none;
+ flex:1;padding:13px;border:1px solid var(--border);
+ border-radius:10px;outline:0;background:var(--card);color:var(--text)
+}
+.search-box button{
+ background:var(--blue);color:#fff;padding:0 18px;border-radius:10px
 }
 
-.search-box button{
-  background:var(--blue);
-  color:#fff;
-  padding:0 18px;
-  border-radius:10px;
+/* SETTINGS */
+.setting{
+ display:flex;align-items:center;justify-content:space-between;
+ padding:15px 0;border-bottom:1px solid var(--border)
 }
+.setting:last-child{border:0}
+.setting-text strong{display:block}
+.setting-text small{color:var(--muted)}
+.switch{
+ width:50px;height:28px;background:#ccc;border-radius:20px;
+ position:relative;cursor:pointer
+}
+.switch:after{
+ content:"";position:absolute;width:22px;height:22px;
+ background:#fff;border-radius:50%;top:3px;left:3px;
+ transition:.2s
+}
+.switch.on{background:var(--blue)}
+.switch.on:after{left:25px}
 
 /* MODAL */
-
 .modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.55);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  z-index:500;
+ position:fixed;inset:0;background:rgba(0,0,0,.6);
+ display:none;align-items:center;justify-content:center;
+ padding:20px;z-index:3000
 }
-
-.modal.show{
-  display:flex;
-}
-
+.modal.show{display:flex}
 .modal-box{
-  width:min(500px,100%);
-  background:#fff;
-  border-radius:15px;
-  padding:20px;
+ width:min(520px,100%);background:var(--card);
+ color:var(--text);border-radius:15px;padding:20px
 }
-
-.modal-box h2{
-  margin-bottom:15px;
-}
-
+.modal-box h2{margin-bottom:15px}
 .modal-box textarea{
-  width:100%;
-  height:150px;
-  resize:none;
-  border:1px solid var(--border);
-  border-radius:10px;
-  padding:12px;
-  outline:none;
+ width:100%;height:150px;resize:none;border:1px solid var(--border);
+ border-radius:10px;padding:12px;outline:0;background:var(--card);color:var(--text)
 }
+.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:12px}
 
-.modal-actions{
-  display:flex;
-  justify-content:flex-end;
-  gap:8px;
-  margin-top:12px;
+/* LOGIN */
+.login-screen{
+ position:fixed;inset:0;background:var(--bg);
+ display:none;align-items:center;justify-content:center;
+ padding:20px;z-index:5000
 }
+.login-screen.show{display:flex}
+.login-box{
+ width:min(420px,100%);background:var(--card);
+ border-radius:18px;padding:25px;border:1px solid var(--border)
+}
+.login-logo{text-align:center;font-size:32px;font-weight:900;color:var(--blue);margin-bottom:8px}
+.login-sub{text-align:center;color:var(--muted);margin-bottom:20px}
+.form-group{margin-bottom:12px}
+.form-group label{display:block;margin-bottom:5px;font-weight:bold;font-size:14px}
+.form-group input{
+ width:100%;padding:12px;border:1px solid var(--border);
+ border-radius:9px;outline:0;background:var(--card);color:var(--text)
+}
+.login-btn{
+ width:100%;padding:12px;background:var(--blue);
+ color:#fff;border-radius:9px;font-weight:bold;margin-top:5px
+}
+.google-btn{
+ width:100%;padding:12px;background:#fff;color:#111;
+ border:1px solid #ddd;border-radius:9px;font-weight:bold;margin-top:9px
+}
+.login-switch{text-align:center;margin-top:15px;color:var(--muted)}
+.login-switch button{background:transparent;color:var(--blue);font-weight:bold}
 
-/* MOBILE NAV */
-
+/* MOBILE */
 .bottom-nav{
-  display:none;
+ display:none
+}
+@media(max-width:1050px){
+ .layout{grid-template-columns:190px minmax(0,1fr)}
+ .rightbar{display:none}
+}
+@media(max-width:700px){
+ .topbar{height:58px;padding:0 10px}
+ .logo{font-size:21px}
+ .top-search{display:none}
+ .layout{display:block;padding:10px;padding-bottom:75px}
+ .sidebar{display:none}
+ .bottom-nav{
+  position:fixed;display:grid;grid-template-columns:repeat(5,1fr);
+  bottom:0;left:0;right:0;height:62px;
+  background:var(--card);border-top:1px solid var(--border);z-index:2000
+ }
+ .bottom-nav button{background:transparent;font-size:19px;color:var(--text)}
+ .bottom-nav small{display:block;font-size:10px}
+ .top-actions .icon-btn:nth-child(2){display:none}
+ .post-image{height:230px;font-size:34px}
 }
 
 /* DARK */
-
 body.dark{
-  --bg:#111827;
-  --card:#1f2937;
-  --text:#f9fafb;
-  --muted:#9ca3af;
-  --border:#374151;
+ --bg:#111827;--card:#1f2937;--text:#f9fafb;
+ --muted:#9ca3af;--border:#374151;--hover:#374151
 }
-
-body.dark .topbar,
-body.dark .chat-list,
-body.dark .chat-page,
-body.dark .right-card,
-body.dark .modal-box{
-  background:#1f2937;
-}
-
-body.dark .search,
-body.dark .fake-input,
-body.dark .chat-input input{
-  background:#374151;
-  color:#fff;
-}
-
-body.dark .menu button{
-  color:#ddd;
-}
-
-body.dark .menu button.active{
-  color:#60a5fa;
-  background:#172554;
-}
-
-body.dark .secondary,
-body.dark .icon-btn{
-  background:#374151;
-  color:#fff;
-}
-
-/* RESPONSIVE */
-
-@media(max-width:1000px){
-
-  .layout{
-    grid-template-columns:190px minmax(0,1fr);
-  }
-
-  .rightbar{
-    display:none;
-  }
-}
-
-@media(max-width:700px){
-
-  .topbar{
-    padding:0 12px;
-  }
-
-  .search{
-    display:none;
-  }
-
-  .layout{
-    display:block;
-    padding:10px;
-    padding-bottom:75px;
-  }
-
-  .sidebar{
-    display:none;
-  }
-
-  .bottom-nav{
-    position:fixed;
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    bottom:0;
-    left:0;
-    right:0;
-    height:62px;
-    background:#fff;
-    border-top:1px solid var(--border);
-    z-index:200;
-  }
-
-  .bottom-nav button{
-    background:transparent;
-    font-size:20px;
-  }
-
-  .bottom-nav button small{
-    display:block;
-    font-size:10px;
-  }
-
-  .top-actions .icon-btn:nth-child(2){
-    display:none;
-  }
-
-  .story{
-    min-width:90px;
-  }
-
-  .auth-box{
-    padding:22px;
-  }
-}
+body.dark .google-btn{background:#fff;color:#111}
+body.dark .msg.them{background:#374151}
 </style>
 </head>
 
 <body>
 
-<!-- ==================================================
-     AUTH SCREEN
-================================================== -->
-
-<div id="authScreen">
-
-  <div class="auth-box">
-
-    <div class="auth-logo">JB CHAT</div>
-
-    <div class="auth-subtitle">
-      Connect, chat and share with your friends.
-    </div>
-
-    <!-- AUTH TABS -->
-
-    <div id="authTabs" class="auth-tabs">
-
-      <button
-        id="loginTab"
-        class="active"
-        onclick="showAuthForm('login')">
-        Login
-      </button>
-
-      <button
-        id="registerTab"
-        onclick="showAuthForm('register')">
-        Create account
-      </button>
-
-    </div>
-
-    <div id="authMessage" class="auth-message"></div>
-
-
-    <!-- LOGIN -->
-
-    <form id="loginForm"
-          class="auth-form"
-          onsubmit="loginUser(event)">
-
-      <label>Email</label>
-
-      <input
-        id="loginEmail"
-        type="email"
-        placeholder="Enter your email"
-        required>
-
-      <label>Password</label>
-
-      <input
-        id="loginPassword"
-        type="password"
-        placeholder="Enter your password"
-        required>
-
-      <button type="button"
-              class="forgot"
-              onclick="resetPassword()">
-        Forgot password?
-      </button>
-
-      <button
-        class="auth-btn"
-        type="submit">
-        Login
-      </button>
-
-    </form>
-
-
-    <!-- REGISTER -->
-
-    <form id="registerForm"
-          class="auth-form hidden"
-          onsubmit="registerUser(event)">
-
-      <label>Full name</label>
-
-      <input
-        id="registerName"
-        type="text"
-        placeholder="Your name"
-        required>
-
-      <label>Email</label>
-
-      <input
-        id="registerEmail"
-        type="email"
-        placeholder="Your email"
-        required>
-
-      <label>Password</label>
-
-      <input
-        id="registerPassword"
-        type="password"
-        placeholder="At least 6 characters"
-        minlength="6"
-        required>
-
-      <label>Confirm password</label>
-
-      <input
-        id="registerPassword2"
-        type="password"
-        placeholder="Confirm password"
-        minlength="6"
-        required>
-
-      <button
-        class="auth-btn"
-        type="submit">
-        Create account
-      </button>
-
-    </form>
-
-
-    <div class="divider">
-      OR
-    </div>
-
-    <button
-      class="google-btn"
-      onclick="loginWithGoogle()">
-      🔵 Continue with Google
-    </button>
-
-  </div>
-
-</div>
-
-
-<!-- ==================================================
-     EMAIL VERIFICATION
-================================================== -->
-
-<div id="verifyScreen"
-     class="hidden"
-     style="min-height:100vh;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            padding:20px;
-            background:#f3f5f7;">
-
-  <div class="auth-box verify-box">
-
-    <div class="auth-logo">JB CHAT</div>
-
-    <h2>Verify your email</h2>
-
-    <p>
-      We sent a verification email to
-      <b id="verifyEmail"></b>.
-      <br><br>
-      Open your email and click the verification link,
-      then come back here.
-    </p>
-
-    <div class="verify-actions">
-
-      <button
-        class="auth-btn"
-        onclick="checkVerification()">
-        ✅ I verified my email
-      </button>
-
-      <button
-        class="secondary"
-        onclick="sendVerificationAgain()">
-        Send verification again
-      </button>
-
-      <button
-        class="secondary"
-        onclick="logoutUser()">
-        Logout
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- ==================================================
-     MAIN APP
-================================================== -->
-
-<div id="mainApp"
-     class="app hidden">
+<div class="app">
 
 <header class="topbar">
+ <div class="logo">JB CHAT</div>
 
-  <div class="logo">
-    JB CHAT
-  </div>
+ <input id="topSearch" class="top-search"
+        placeholder="Search JB CHAT..."
+        oninput="searchUsers(this.value)">
 
-  <input
-    id="topSearch"
-    class="search"
-    placeholder="Search JB CHAT..."
-    oninput="searchUsers(this.value)">
-
-  <div class="top-actions">
-
-    <button
-      class="icon-btn"
-      onclick="showPage('notifications')">
-      🔔
-    </button>
-
-    <button
-      class="icon-btn"
-      onclick="toggleDark()">
-      🌙
-    </button>
-
-    <button
-      class="icon-btn"
-      onclick="showPage('profile')">
-      <span id="topAvatar">J</span>
-    </button>
-
-  </div>
-
+ <div class="top-actions">
+  <button class="icon-btn" onclick="showPage('notifications')">🔔</button>
+  <button class="icon-btn" onclick="toggleDark()">🌙</button>
+  <button class="icon-btn" onclick="showPage('profile')">J</button>
+ </div>
 </header>
-
 
 <div class="layout">
 
-
-<!-- LEFT SIDEBAR -->
-
 <aside class="sidebar">
-
 <nav class="menu">
-
-  <button
-    class="active"
-    onclick="showPage('home',this)">
-    🏠 Home
-  </button>
-
-  <button
-    onclick="showPage('chats',this)">
-    💬 Chats
-  </button>
-
-  <button
-    onclick="showPage('search',this)">
-    🔎 Search
-  </button>
-
-  <button
-    onclick="showPage('notifications',this)">
-    🔔 Notifications
-  </button>
-
-  <button
-    onclick="showPage('profile',this)">
-    👤 Profile
-  </button>
-
-  <button
-    onclick="logoutUser()">
-    🚪 Logout
-  </button>
-
+ <button class="active" onclick="showPage('home',this)">🏠 Home</button>
+ <button onclick="showPage('chats',this)">💬 Chats</button>
+ <button onclick="showPage('search',this)">🔎 Search</button>
+ <button onclick="showPage('notifications',this)">🔔 Notifications</button>
+ <button onclick="showPage('profile',this)">👤 Profile</button>
+ <button onclick="showPage('settings',this)">⚙️ Settings</button>
+ <button onclick="logout()">🚪 Logout</button>
 </nav>
-
 </aside>
-
-
-<!-- MAIN -->
 
 <main>
 
-
 <!-- HOME -->
-
-<section
-  id="home"
-  class="page active">
-
+<section id="home" class="page active">
 
 <div class="card">
-
-<div class="stories">
-
-  <div class="story">
-    <div class="avatar"
-         id="storyAvatar">
-      J
-    </div>
-    Your story
-  </div>
-
-  <div class="story">
-    <div class="avatar">A</div>
-    Alice
-  </div>
-
-  <div class="story">
-    <div class="avatar">M</div>
-    Mike
-  </div>
-
-  <div class="story">
-    <div class="avatar">S</div>
-    Sarah
-  </div>
-
+ <div class="stories">
+  <div class="story"><div class="avatar">J</div>Your story</div>
+  <div class="story"><div class="avatar">A</div>Alice</div>
+  <div class="story"><div class="avatar">M</div>Mike</div>
+  <div class="story"><div class="avatar">S</div>Sarah</div>
+  <div class="story"><div class="avatar">D</div>David</div>
+ </div>
 </div>
 
-</div>
-
-
-<!-- CREATE POST -->
-
-<div class="card card-padding">
-
-<div class="create-row">
-
-  <div
-    class="avatar"
-    id="createAvatar">
-    J
+<div class="card padding">
+ <div class="create-row">
+  <div class="avatar">J</div>
+  <div class="fake-input" onclick="openPostModal()">
+   What's on your mind, Jay?
   </div>
+ </div>
 
-  <div
-    class="fake-input"
-    onclick="openPostModal()">
-    What's on your mind?
-  </div>
-
+ <div class="post-tools">
+  <button onclick="openPostModal()">📝 Post</button>
+  <button onclick="openPostModal()">📷 Photo</button>
+  <button onclick="openPostModal()">😊 Feeling</button>
+ </div>
 </div>
-
-
-<div class="post-tools">
-
-  <button onclick="openPostModal()">
-    📝 Post
-  </button>
-
-  <button onclick="openPostModal()">
-    📷 Photo
-  </button>
-
-  <button onclick="openPostModal()">
-    😊 Feeling
-  </button>
-
-</div>
-
-</div>
-
-
-<!-- POSTS -->
 
 <div id="posts">
 
+<article class="card post">
+ <div class="padding">
+  <div class="post-head">
+   <div class="avatar">J</div>
+   <div class="post-info">
+    <strong>Jaylosy</strong>
+    <small>Just now · 🌎</small>
+   </div>
+   <button class="more" onclick="postMenu(this)">•••</button>
+  </div>
 
-<!-- POST 1 -->
+  <div class="post-text">
+   Welcome to <b>JB CHAT</b> 🚀<br>
+   Connect, chat and share with your friends.
+  </div>
+ </div>
 
-<article class="card">
+ <div class="post-image">JB CHAT</div>
 
-<div class="card-padding">
+ <div class="padding">
+  <div class="post-stats">
+   <span>👍 <span class="like-count">0</span> likes</span>
+   <span><span class="comment-count">0</span> comments · <span class="share-count">0</span> shares</span>
+  </div>
 
-<div class="post-head">
+  <div class="post-actions">
+   <button onclick="likePost(this)">♡ Like</button>
+   <button onclick="commentPost(this)">💬 Comment</button>
+   <button onclick="sharePost(this)">➤ Share</button>
+  </div>
 
-<div class="avatar">
-J
-</div>
-
-<div class="post-info">
-
-<strong>jaylosy</strong>
-
-<small>
-Just now · 🌎
-</small>
-
-</div>
-
-<button
-  class="more"
-  onclick="postMenu()">
-•••
-</button>
-
-</div>
-
-
-<div class="post-text">
-
-Welcome to
-<b>JB CHAT</b> 🚀
-
-<br>
-
-Connect, chat and share
-with your friends.
-
-</div>
-
-</div>
-
-
-<div class="post-image">
-JB CHAT
-</div>
-
-
-<div class="card-padding">
-
-<div class="post-stats">
-
-<span>
-👍
-<span class="like-count">
-0
-</span>
-likes
-</span>
-
-<span>
-0 comments · 0 shares
-</span>
-
-</div>
-
-
-<div class="post-actions">
-
-<button
-  onclick="likePost(this)">
-♡ Like
-</button>
-
-<button
-  onclick="commentPost()">
-💬 Comment
-</button>
-
-<button
-  onclick="sharePost()">
-➤ Share
-</button>
-
-</div>
-
-</div>
-
+  <div class="comments-area"></div>
+ </div>
 </article>
 
+<article class="card post">
+ <div class="padding">
+  <div class="post-head">
+   <div class="avatar">A</div>
+   <div class="post-info">
+    <strong>Alice</strong>
+    <small>5 min · 🌎</small>
+   </div>
+   <button class="more" onclick="postMenu(this)">•••</button>
+  </div>
 
-<!-- POST 2 -->
+  <div class="post-text">Hello everyone 👋</div>
 
-<article class="card">
+  <div class="post-stats">
+   <span>👍 <span class="like-count">3</span> likes</span>
+   <span><span class="comment-count">1</span> comment · <span class="share-count">0</span> shares</span>
+  </div>
 
-<div class="card-padding">
+  <div class="post-actions">
+   <button onclick="likePost(this)">♡ Like</button>
+   <button onclick="commentPost(this)">💬 Comment</button>
+   <button onclick="sharePost(this)">➤ Share</button>
+  </div>
 
-<div class="post-head">
-
-<div class="avatar">
-A
-</div>
-
-<div class="post-info">
-
-<strong>Alice</strong>
-
-<small>
-5 min · 🌎
-</small>
-
-</div>
-
-<button class="more">
-•••
-</button>
-
-</div>
-
-
-<div class="post-text">
-Hello everyone 👋
-</div>
-
-
-<div class="post-stats">
-
-<span>
-👍
-<span class="like-count">
-3
-</span>
-likes
-</span>
-
-<span>
-1 comment · 0 shares
-</span>
-
-</div>
-
-
-<div class="post-actions">
-
-<button onclick="likePost(this)">
-♡ Like
-</button>
-
-<button onclick="commentPost()">
-💬 Comment
-</button>
-
-<button onclick="sharePost()">
-➤ Share
-</button>
-
-</div>
-
-</div>
-
+  <div class="comments-area"></div>
+ </div>
 </article>
 
 </div>
-
 </section>
-
 
 <!-- CHATS -->
+<section id="chats" class="page">
+ <div class="chat-list">
 
-<section
-  id="chats"
-  class="page">
+  <div class="chat-item" onclick="openChat('Alice','A')">
+   <div class="avatar">A</div>
+   <div class="chat-content">
+    <strong>Alice</strong>
+    <small>Hello 👋</small>
+   </div>
+   <small>2m</small>
+  </div>
 
-<div class="chat-list">
+  <div class="chat-item" onclick="openChat('Mike','M')">
+   <div class="avatar">M</div>
+   <div class="chat-content">
+    <strong>Mike</strong>
+    <small>See you later!</small>
+   </div>
+   <small>8m</small>
+  </div>
 
-<div
-  class="chat-item"
-  onclick="openChat('Alice','A')">
+  <div class="chat-item" onclick="openChat('Sarah','S')">
+   <div class="avatar">S</div>
+   <div class="chat-content">
+    <strong>Sarah</strong>
+    <small>Good morning 😊</small>
+   </div>
+   <small>20m</small>
+  </div>
 
-<div class="avatar">A</div>
+  <div class="chat-item" onclick="openChat('David','D')">
+   <div class="avatar">D</div>
+   <div class="chat-content">
+    <strong>David</strong>
+    <small>Welcome!</small>
+   </div>
+   <small>1h</small>
+  </div>
 
-<div class="chat-content">
+ </div>
 
-<strong>Alice</strong>
-
-<small>
-Hello 👋
-</small>
-
-</div>
-
-<small>2m</small>
-
-</div>
-
-
-<div
-  class="chat-item"
-  onclick="openChat('Mike','M')">
-
-<div class="avatar">M</div>
-
-<div class="chat-content">
-
-<strong>Mike</strong>
-
-<small>
-See you later!
-</small>
-
-</div>
-
-<small>8m</small>
-
-</div>
-
-
-<div
-  class="chat-item"
-  onclick="openChat('Sarah','S')">
-
-<div class="avatar">S</div>
-
-<div class="chat-content">
-
-<strong>Sarah</strong>
-
-<small>
-Good morning 😊
-</small>
-
-</div>
-
-<small>20m</small>
-
-</div>
-
-</div>
-
-
-<div
-  id="chatWindow"
-  style="display:none;margin-top:15px;">
-</div>
-
+ <div id="chatWindow" style="display:none;margin-top:15px"></div>
 </section>
-
 
 <!-- SEARCH -->
+<section id="search" class="page">
+ <div class="card padding">
+  <h2>Search people</h2>
 
-<section
-  id="search"
-  class="page">
+  <div class="search-box" style="margin-top:15px">
+   <input id="searchInput" placeholder="Search people..."
+          oninput="searchUsers(this.value)">
+   <button onclick="searchUsers(document.getElementById('searchInput').value)">
+    Search
+   </button>
+  </div>
+ </div>
 
-<div class="card card-padding">
-
-<h2>
-Search
-</h2>
-
-<div
-  class="search-box"
-  style="margin-top:15px;">
-
-<input
-  id="searchInput"
-  placeholder="Search people..."
-  oninput="searchUsers(this.value)">
-
-<button
-  onclick="searchUsers(
-  document.getElementById('searchInput').value)">
-Search
-</button>
-
-</div>
-
-</div>
-
-<div id="searchResults"></div>
-
+ <div id="searchResults"></div>
 </section>
-
 
 <!-- NOTIFICATIONS -->
+<section id="notifications" class="page">
+ <div class="card">
 
-<section
-  id="notifications"
-  class="page">
+  <div class="notification">
+   <div class="avatar">A</div>
+   <div>
+    <p><b>Alice</b> liked your post 👍</p>
+    <small>2 minutes ago</small>
+   </div>
+  </div>
 
-<div class="card">
+  <div class="notification">
+   <div class="avatar">M</div>
+   <div>
+    <p><b>Mike</b> sent you a message 💬</p>
+    <small>10 minutes ago</small>
+   </div>
+  </div>
 
-<div class="notification">
+  <div class="notification">
+   <div class="avatar">S</div>
+   <div>
+    <p><b>Sarah</b> started following you</p>
+    <small>30 minutes ago</small>
+   </div>
+  </div>
 
-<div class="avatar">
-A
-</div>
+  <div class="notification">
+   <div class="avatar">D</div>
+   <div>
+    <p><b>David</b> joined JB CHAT 🎉</p>
+    <small>1 hour ago</small>
+   </div>
+  </div>
 
-<div>
+ </div>
+</section>
 
-<p>
-<b>Alice</b>
-liked your post 👍
-</p>
+<!-- PROFILE -->
+<section id="profile" class="page">
 
-<small>
-2 minutes ago
-</small>
+ <div class="card">
+  <div class="profile-cover"></div>
 
-</div>
+  <div class="profile-info">
+   <div class="profile-big" id="profileAvatar">J</div>
 
-</div>
+   <h2 id="profileName">Jaylosy</h2>
+   <p id="profileUsername">@jaylosy · JB CHAT</p>
+   <p id="profileBio">Connecting people and sharing moments 🚀</p>
 
+   <div class="profile-buttons">
+    <button class="primary" onclick="editProfile()">Edit profile</button>
+    <button class="secondary" onclick="shareProfile()">Share profile</button>
+   </div>
+  </div>
+ </div>
 
-<div class="notification">
+ <div class="card padding">
+  <h3>About</h3>
+  <p style="margin-top:10px;color:var(--muted)">
+   Welcome to my JB CHAT profile.
+  </p>
+ </div>
 
-<div class="avatar">
-M
-</div>
-
-<div>
-
-<p>
-<b>Mike</b>
-sent you a message 💬
-</p>
-
-<small>
-10 minutes ago
-</small>
-
-</div>
-
-</div>
-
-
-<div class="notification">
-
-<div class="avatar">
-S
-</div>
-
-<div>
-
-<p>
-<b>Sarah</b>
-started following you
-</p>
-
-<small>
-30 minutes ago
-</small>
-
-</div>
-
-</div>
-
-</div>
+ <div class="card padding">
+  <h3>My activity</h3>
+  <div style="display:flex;gap:25px;margin-top:15px">
+   <div><b id="postNumber">2</b><br><small>Posts</small></div>
+   <div><b id="followerNumber">12</b><br><small>Followers</small></div>
+   <div><b id="followingNumber">8</b><br><small>Following</small></div>
+  </div>
+ </div>
 
 </section>
 
+<!-- SETTINGS -->
+<section id="settings" class="page">
+ <div class="card padding">
+  <h2>Settings</h2>
 
-<!-- PROFILE -->
+  <div class="setting">
+   <div class="setting-text">
+    <strong>Dark mode</strong>
+    <small>Change the appearance of JB CHAT</small>
+   </div>
+   <div id="darkSwitch" class="switch" onclick="toggleDark()"></div>
+  </div>
 
-<section
-  id="profile"
-  class="page">
+  <div class="setting">
+   <div class="setting-text">
+    <strong>Notifications</strong>
+    <small>Receive notifications</small>
+   </div>
+   <div id="notificationSwitch" class="switch on"
+        onclick="toggleSwitch(this)"></div>
+  </div>
 
-<div class="card">
+  <div class="setting">
+   <div class="setting-text">
+    <strong>Online status</strong>
+    <small>Show when you are online</small>
+   </div>
+   <div class="switch on" onclick="toggleSwitch(this)"></div>
+  </div>
 
-<div class="profile-cover">
-</div>
-
-<div class="profile-info">
-
-<div
-  class="profile-big"
-  id="profileAvatar">
-J
-</div>
-
-<h2 id="profileName">
-Jaylosy
-</h2>
-
-<p id="profileEmail">
-@jaylosy · JB CHAT
-</p>
-
-<p>
-Connecting people and sharing moments 🚀
-</p>
-
-<div class="profile-buttons">
-
-<button
-  class="primary"
-  onclick="editProfile()">
-Edit profile
-</button>
-
-<button
-  class="secondary"
-  onclick="shareProfile()">
-Share profile
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="card card-padding">
-
-<h3>
-About
-</h3>
-
-<p
-  style="margin-top:10px;color:var(--muted);">
-Welcome to my JB CHAT profile.
-</p>
-
-<br>
-
-<button
-  class="secondary"
-  onclick="logoutUser()">
-🚪 Logout
-</button>
-
-</div>
-
+  <div style="margin-top:20px">
+   <button class="primary" onclick="logout()">🚪 Log out</button>
+  </div>
+ </div>
 </section>
 
 </main>
 
-
-<!-- RIGHT SIDEBAR -->
-
+<!-- RIGHT -->
 <aside class="rightbar">
 
-<div class="right-card">
+ <div class="right-card">
+  <h3>People you may know</h3>
 
-<h3>
-People you may know
-</h3>
+  <div class="person">
+   <div class="avatar">A</div>
+   <div class="person-info">
+    <strong>Alice</strong>
+    <small>New user</small>
+   </div>
+   <button class="follow" onclick="follow(this)">Follow</button>
+  </div>
 
+  <div class="person">
+   <div class="avatar">M</div>
+   <div class="person-info">
+    <strong>Mike</strong>
+    <small>New user</small>
+   </div>
+   <button class="follow" onclick="follow(this)">Follow</button>
+  </div>
 
-<div class="person">
+  <div class="person">
+   <div class="avatar">S</div>
+   <div class="person-info">
+    <strong>Sarah</strong>
+    <small>New user</small>
+   </div>
+   <button class="follow" onclick="follow(this)">Follow</button>
+  </div>
 
-<div class="avatar">
-A
-</div>
+  <div class="person">
+   <div class="avatar">D</div>
+   <div class="person-info">
+    <strong>David</strong>
+    <small>New user</small>
+   </div>
+   <button class="follow" onclick="follow(this)">Follow</button>
+  </div>
+ </div>
 
-<div class="person-info">
-
-<strong>
-Alice
-</strong>
-
-<small>
-New user
-</small>
-
-</div>
-
-<button
-  class="follow"
-  onclick="follow(this)">
-Follow
-</button>
-
-</div>
-
-
-<div class="person">
-
-<div class="avatar">
-M
-</div>
-
-<div class="person-info">
-
-<strong>
-Mike
-</strong>
-
-<small>
-New user
-</small>
-
-</div>
-
-<button
-  class="follow"
-  onclick="follow(this)">
-Follow
-</button>
-
-</div>
-
-
-<div class="person">
-
-<div class="avatar">
-S
-</div>
-
-<div class="person-info">
-
-<strong>
-Sarah
-</strong>
-
-<small>
-New user
-</small>
-
-</div>
-
-<button
-  class="follow"
-  onclick="follow(this)">
-Follow
-</button>
-
-</div>
-
-</div>
-
-
-<div class="right-card">
-
-<h3>
-JB CHAT
-</h3>
-
-<p
-  style="color:var(--muted);line-height:1.5;">
-Connect with friends, send messages
-and share your moments.
-</p>
-
-</div>
+ <div class="right-card">
+  <h3>JB CHAT</h3>
+  <p style="color:var(--muted);line-height:1.5">
+   Connect with friends, send messages and share your moments.
+  </p>
+ </div>
 
 </aside>
 
 </div>
 
-
 <!-- MOBILE NAV -->
-
 <nav class="bottom-nav">
-
-<button onclick="showPage('home')">
-🏠
-<small>Home</small>
-</button>
-
-<button onclick="showPage('chats')">
-💬
-<small>Chats</small>
-</button>
-
-<button onclick="showPage('search')">
-🔎
-<small>Search</small>
-</button>
-
-<button onclick="showPage('notifications')">
-🔔
-<small>Alerts</small>
-</button>
-
-<button onclick="showPage('profile')">
-👤
-<small>Profile</small>
-</button>
-
+ <button onclick="showPage('home')">🏠<small>Home</small></button>
+ <button onclick="showPage('chats')">💬<small>Chats</small></button>
+ <button onclick="showPage('search')">🔎<small>Search</small></button>
+ <button onclick="showPage('notifications')">🔔<small>Alerts</small></button>
+ <button onclick="showPage('profile')">👤<small>Profile</small></button>
 </nav>
 
-
 <!-- POST MODAL -->
+<div id="postModal" class="modal">
+ <div class="modal-box">
+  <h2>Create post</h2>
 
-<div
-  id="postModal"
-  class="modal">
+  <textarea id="postText"
+   placeholder="What's on your mind?"></textarea>
 
-<div class="modal-box">
+  <div class="modal-actions">
+   <button class="secondary" onclick="closePostModal()">Cancel</button>
+   <button class="primary" onclick="createPost()">Post</button>
+  </div>
+ </div>
+</div>
 
-<h2>
-Create post
-</h2>
+<!-- LOGIN -->
+<div id="loginScreen" class="login-screen">
 
-<textarea
-  id="postText"
-  placeholder="What's on your mind?">
-</textarea>
+ <div class="login-box">
 
-<div class="modal-actions">
+  <div class="login-logo">JB CHAT</div>
+  <div class="login-sub">Connect with people around you</div>
 
-<button
-  class="secondary"
-  onclick="closePostModal()">
-Cancel
-</button>
+  <div class="form-group">
+   <label>Email</label>
+   <input id="loginEmail" type="email" placeholder="Enter your email">
+  </div>
 
-<button
-  class="primary"
-  onclick="createPost()">
-Post
-</button>
+  <div class="form-group">
+   <label>Password</label>
+   <input id="loginPassword" type="password" placeholder="Enter password">
+  </div>
 
+  <button class="login-btn" onclick="login()">Log in</button>
+
+  <button class="google-btn" onclick="googleLogin()">
+   🔵 Continue with Google
+  </button>
+
+  <div class="login-switch">
+   Don't have an account?
+   <button onclick="register()">Create account</button>
+  </div>
+
+ </div>
 </div>
 
 </div>
 
-</div>
+<script>
+/* =========================
+   JB CHAT APPLICATION
+========================= */
 
-</div>
+let currentChat="";
+let loggedIn=localStorage.getItem("jbchat-login")==="true";
 
+/* NAVIGATION */
+function showPage(page,button){
 
-<!-- ==================================================
-     FIREBASE
-================================================== -->
+ document.querySelectorAll(".page")
+  .forEach(p=>p.classList.remove("active"));
 
-<script type="module">
+ const target=document.getElementById(page);
 
-import {
-  initializeApp
-}
-from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+ if(target) target.classList.add("active");
 
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-  sendEmailVerification,
-  sendPasswordResetEmail,
-  onAuthStateChanged,
-  signOut,
-  updateProfile
-}
-from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+ document.querySelectorAll(".menu button")
+  .forEach(b=>b.classList.remove("active"));
 
+ if(button) button.classList.add("active");
 
-/* ==================================================
-   FIREBASE CONFIG
-   SHIRA AHA CONFIG YAWE
-================================================== */
-
-const firebaseConfig = {
-
-  apiKey:
-    "YOUR_API_KEY",
-
-  authDomain:
-    "YOUR_PROJECT.firebaseapp.com",
-
-  projectId:
-    "YOUR_PROJECT_ID",
-
-  storageBucket:
-    "YOUR_PROJECT.firebasestorage.app",
-
-  messagingSenderId:
-    "YOUR_MESSAGING_SENDER_ID",
-
-  appId:
-    "YOUR_APP_ID"
-
-};
-
-
-/* INITIALIZE */
-
-const app =
-  initializeApp(firebaseConfig);
-
-const auth =
-  getAuth(app);
-
-const googleProvider =
-  new GoogleAuthProvider();
-
-
-/* ==================================================
-   ELEMENTS
-================================================== */
-
-const authScreen =
-  document.getElementById("authScreen");
-
-const verifyScreen =
-  document.getElementById("verifyScreen");
-
-const mainApp =
-  document.getElementById("mainApp");
-
-const authMessage =
-  document.getElementById("authMessage");
-
-
-/* ==================================================
-   MESSAGE
-================================================== */
-
-function showAuthMessage(message,type="error"){
-
-  authMessage.textContent=message;
-
-  authMessage.className=
-    "auth-message "+type;
-
+ window.scrollTo({top:0,behavior:"smooth"});
 }
 
+/* DARK MODE */
+function toggleDark(){
 
-/* ==================================================
-   AUTH FORM SWITCH
-================================================== */
+ document.body.classList.toggle("dark");
 
-window.showAuthForm=function(type){
+ const enabled=document.body.classList.contains("dark");
 
-  const loginForm =
-    document.getElementById("loginForm");
+ localStorage.setItem("jbchat-dark",enabled);
 
-  const registerForm =
-    document.getElementById("registerForm");
+ const sw=document.getElementById("darkSwitch");
 
-  const loginTab =
-    document.getElementById("loginTab");
-
-  const registerTab =
-    document.getElementById("registerTab");
-
-  authMessage.className="auth-message";
-
-  if(type==="login"){
-
-    loginForm.classList.remove("hidden");
-
-    registerForm.classList.add("hidden");
-
-    loginTab.classList.add("active");
-
-    registerTab.classList.remove("active");
-
-  }else{
-
-    loginForm.classList.add("hidden");
-
-    registerForm.classList.remove("hidden");
-
-    loginTab.classList.remove("active");
-
-    registerTab.classList.add("active");
-
-  }
-
-};
-
-
-/* ==================================================
-   REGISTER
-================================================== */
-
-window.registerUser=async function(event){
-
-  event.preventDefault();
-
-  const name =
-    document.getElementById("registerName")
-    .value.trim();
-
-  const email =
-    document.getElementById("registerEmail")
-    .value.trim();
-
-  const password =
-    document.getElementById("registerPassword")
-    .value;
-
-  const password2 =
-    document.getElementById("registerPassword2")
-    .value;
-
-
-  if(password!==password2){
-
-    showAuthMessage(
-      "Passwords do not match."
-    );
-
-    return;
-  }
-
-
-  if(password.length<6){
-
-    showAuthMessage(
-      "Password must contain at least 6 characters."
-    );
-
-    return;
-  }
-
-
-  try{
-
-    const credential =
-      await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-
-    await updateProfile(
-      credential.user,
-      {
-        displayName:name
-      }
-    );
-
-
-    await sendEmailVerification(
-      credential.user
-    );
-
-
-    document.getElementById(
-      "verifyEmail"
-    ).textContent=email;
-
-
-    showVerification();
-
-
-  }catch(error){
-
-    showAuthMessage(
-      firebaseError(error.code)
-    );
-
-  }
-
-};
-
-
-/* ==================================================
-   LOGIN
-================================================== */
-
-window.loginUser=async function(event){
-
-  event.preventDefault();
-
-  const email =
-    document.getElementById("loginEmail")
-    .value.trim();
-
-  const password =
-    document.getElementById("loginPassword")
-    .value;
-
-
-  try{
-
-    const credential =
-      await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-
-    if(!credential.user.emailVerified){
-
-      document.getElementById(
-        "verifyEmail"
-      ).textContent=credential.user.email;
-
-      showVerification();
-
-      return;
-
-    }
-
-
-    showApp(
-      credential.user
-    );
-
-
-  }catch(error){
-
-    showAuthMessage(
-      firebaseError(error.code)
-    );
-
-  }
-
-};
-
-
-/* ==================================================
-   GOOGLE LOGIN
-================================================== */
-
-window.loginWithGoogle=async function(){
-
-  try{
-
-    const result =
-      await signInWithPopup(
-        auth,
-        googleProvider
-      );
-
-    showApp(result.user);
-
-  }catch(error){
-
-    showAuthMessage(
-      firebaseError(error.code)
-    );
-
-  }
-
-};
-
-
-/* ==================================================
-   RESET PASSWORD
-================================================== */
-
-window.resetPassword=async function(){
-
-  const email =
-    document.getElementById("loginEmail")
-    .value.trim();
-
-
-  if(!email){
-
-    showAuthMessage(
-      "Enter your email first."
-    );
-
-    return;
-  }
-
-
-  try{
-
-    await sendPasswordResetEmail(
-      auth,
-      email
-    );
-
-    showAuthMessage(
-      "Password reset email sent.",
-      "success"
-    );
-
-  }catch(error){
-
-    showAuthMessage(
-      firebaseError(error.code)
-    );
-
-  }
-
-};
-
-
-/* ==================================================
-   VERIFY SCREEN
-================================================== */
-
-function showVerification(){
-
-  authScreen.classList.add("hidden");
-
-  mainApp.classList.add("hidden");
-
-  verifyScreen.classList.remove("hidden");
-
+ if(sw){
+  sw.classList.toggle("on",enabled);
+ }
 }
 
+if(localStorage.getItem("jbchat-dark")==="true"){
+ document.body.classList.add("dark");
 
-window.checkVerification=async function(){
+ const sw=document.getElementById("darkSwitch");
 
-  if(!auth.currentUser) return;
-
-  await auth.currentUser.reload();
-
-  if(auth.currentUser.emailVerified){
-
-    showApp(auth.currentUser);
-
-  }else{
-
-    alert(
-      "Your email is not verified yet."
-    );
-
-  }
-
-};
-
-
-window.sendVerificationAgain=async function(){
-
-  if(!auth.currentUser) return;
-
-  try{
-
-    await sendEmailVerification(
-      auth.currentUser
-    );
-
-    alert(
-      "Verification email sent again."
-    );
-
-  }catch(error){
-
-    alert(
-      firebaseError(error.code)
-    );
-
-  }
-
-};
-
-
-/* ==================================================
-   SHOW APP
-================================================== */
-
-function showApp(user){
-
-  authScreen.classList.add("hidden");
-
-  verifyScreen.classList.add("hidden");
-
-  mainApp.classList.remove("hidden");
-
-
-  const name =
-    user.displayName ||
-    user.email.split("@")[0] ||
-    "Jaylosy";
-
-  const letter =
-    name.charAt(0).toUpperCase();
-
-
-  document.getElementById(
-    "profileName"
-  ).textContent=name;
-
-
-  document.getElementById(
-    "profileEmail"
-  ).textContent=
-    user.email;
-
-
-  document.getElementById(
-    "profileAvatar"
-  ).textContent=letter;
-
-
-  document.getElementById(
-    "createAvatar"
-  ).textContent=letter;
-
-
-  document.getElementById(
-    "topAvatar"
-  ).textContent=letter;
-
-
-  document.getElementById(
-    "storyAvatar"
-  ).textContent=letter;
-
+ if(sw) sw.classList.add("on");
 }
 
-
-/* ==================================================
-   LOGOUT
-================================================== */
-
-window.logoutUser=async function(){
-
-  try{
-
-    await signOut(auth);
-
-    mainApp.classList.add("hidden");
-
-    verifyScreen.classList.add("hidden");
-
-    authScreen.classList.remove("hidden");
-
-    showAuthForm("login");
-
-  }catch(error){
-
-    alert(
-      firebaseError(error.code)
-    );
-
-  }
-
-};
-
-
-/* ==================================================
-   AUTH STATE
-================================================== */
-
-onAuthStateChanged(
-  auth,
-  user=>{
-
-    if(!user){
-
-      mainApp.classList.add("hidden");
-
-      verifyScreen.classList.add("hidden");
-
-      authScreen.classList.remove("hidden");
-
-      return;
-
-    }
-
-
-    if(
-      user.providerData.some(
-        provider =>
-        provider.providerId==="google.com"
-      )
-    ){
-
-      showApp(user);
-
-      return;
-
-    }
-
-
-    if(user.emailVerified){
-
-      showApp(user);
-
-    }else{
-
-      document.getElementById(
-        "verifyEmail"
-      ).textContent=user.email;
-
-      showVerification();
-
-    }
-
-  }
-);
-
-
-/* ==================================================
-   FIREBASE ERRORS
-================================================== */
-
-function firebaseError(code){
-
-  const errors={
-
-    "auth/invalid-email":
-      "Email address is not valid.",
-
-    "auth/user-not-found":
-      "No account was found with this email.",
-
-    "auth/wrong-password":
-      "Incorrect password.",
-
-    "auth/invalid-credential":
-      "Email or password is incorrect.",
-
-    "auth/email-already-in-use":
-      "This email already has an account.",
-
-    "auth/weak-password":
-      "Password is too weak.",
-
-    "auth/popup-closed-by-user":
-      "Google login was cancelled.",
-
-    "auth/popup-blocked":
-      "Your browser blocked the Google login window.",
-
-    "auth/network-request-failed":
-      "Network error. Check your internet connection."
-
-  };
-
-  return errors[code] ||
-    "Something went wrong. Please try again.";
-
+/* GENERIC SWITCH */
+function toggleSwitch(el){
+ el.classList.toggle("on");
 }
 
+/* POST MODAL */
+function openPostModal(){
 
-/* ==================================================
-   PAGE NAVIGATION
-================================================== */
+ document.getElementById("postModal").classList.add("show");
 
-window.showPage=function(page,button){
-
-  document.querySelectorAll(".page")
-    .forEach(
-      p=>p.classList.remove("active")
-    );
-
-
-  const target =
-    document.getElementById(page);
-
-
-  if(target){
-
-    target.classList.add("active");
-
-  }
-
-
-  document.querySelectorAll(".menu button")
-    .forEach(
-      b=>b.classList.remove("active")
-    );
-
-
-  if(button){
-
-    button.classList.add("active");
-
-  }
-
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-};
-
-
-/* ==================================================
-   DARK MODE
-================================================== */
-
-window.toggleDark=function(){
-
-  document.body.classList.toggle("dark");
-
-  localStorage.setItem(
-    "jbchat-dark",
-    document.body.classList.contains("dark")
-  );
-
-};
-
-
-if(
-  localStorage.getItem("jbchat-dark")==="true"
-){
-
-  document.body.classList.add("dark");
-
+ setTimeout(()=>{
+  document.getElementById("postText").focus();
+ },100);
 }
 
+function closePostModal(){
 
-/* ==================================================
-   POST MODAL
-================================================== */
+ document.getElementById("postModal").classList.remove("show");
 
-window.openPostModal=function(){
+ document.getElementById("postText").value="";
+}
 
-  document
-    .getElementById("postModal")
-    .classList.add("show");
+/* CREATE POST */
+function createPost(){
 
-  document
-    .getElementById("postText")
-    .focus();
+ const text=document.getElementById("postText").value.trim();
 
-};
+ if(!text){
+  alert("Write something first.");
+  return;
+ }
 
+ const post=document.createElement("article");
 
-window.closePostModal=function(){
+ post.className="card post";
 
-  document
-    .getElementById("postModal")
-    .classList.remove("show");
+ post.innerHTML=`
+ <div class="padding">
 
-  document
-    .getElementById("postText")
-    .value="";
+  <div class="post-head">
 
-};
+   <div class="avatar">J</div>
 
+   <div class="post-info">
+    <strong>Jaylosy</strong>
+    <small>Just now · 🌎</small>
+   </div>
 
-/* ==================================================
-   CREATE POST
-================================================== */
+   <button class="more" onclick="postMenu(this)">•••</button>
 
-window.createPost=function(){
+  </div>
 
-  const text =
-    document
-      .getElementById("postText")
-      .value.trim();
+  <div class="post-text">
+   ${escapeHTML(text)}
+  </div>
 
+  <div class="post-stats">
+   <span>👍 <span class="like-count">0</span> likes</span>
+   <span>
+    <span class="comment-count">0</span> comments ·
+    <span class="share-count">0</span> shares
+   </span>
+  </div>
 
-  if(!text){
+  <div class="post-actions">
+   <button onclick="likePost(this)">♡ Like</button>
+   <button onclick="commentPost(this)">💬 Comment</button>
+   <button onclick="sharePost(this)">➤ Share</button>
+  </div>
 
-    alert(
-      "Write something first."
-    );
+  <div class="comments-area"></div>
 
-    return;
+ </div>
+ `;
 
-  }
+ document.getElementById("posts").prepend(post);
 
+ closePostModal();
 
-  const user =
-    auth.currentUser;
+ const number=document.querySelectorAll(".post").length;
 
+ const postNumber=document.getElementById("postNumber");
 
-  const name =
-    user?.displayName ||
-    "Jaylosy";
+ if(postNumber) postNumber.textContent=number;
+}
 
+/* LIKE */
+function likePost(button){
 
-  const letter =
-    name.charAt(0).toUpperCase();
+ const post=button.closest(".post");
 
+ const count=post.querySelector(".like-count");
 
-  const post =
-    document.createElement("article");
+ let number=parseInt(count.textContent)||0;
 
+ if(button.classList.contains("liked")){
 
-  post.className="card";
+  number--;
 
+  button.classList.remove("liked");
+  button.innerHTML="♡ Like";
 
-  post.innerHTML=`
+ }else{
 
-    <div class="card-padding">
+  number++;
 
-      <div class="post-head">
+  button.classList.add("liked");
+  button.innerHTML="♥ Liked";
+ }
 
-        <div class="avatar">
-          ${escapeHTML(letter)}
-        </div>
+ count.textContent=number;
+}
 
-        <div class="post-info">
+/* COMMENT */
+function commentPost(button){
 
-          <strong>
-            ${escapeHTML(name)}
-          </strong>
+ const text=prompt("Write your comment:");
 
-          <small>
-            Just now · 🌎
-          </small>
+ if(!text || !text.trim()) return;
 
-        </div>
+ const post=button.closest(".post");
 
-        <button
-          class="more"
-          onclick="postMenu()">
-          •••
-        </button>
+ const area=post.querySelector(".comments-area");
 
-      </div>
+ const count=post.querySelector(".comment-count");
 
-      <div class="post-text">
-        ${escapeHTML(text)}
-      </div>
+ let number=parseInt(count.textContent)||0;
 
-      <div class="post-stats">
+ number++;
 
-        <span>
-          👍
-          <span class="like-count">0</span>
-          likes
-        </span>
+ count.textContent=number;
 
-        <span>
-          0 comments · 0 shares
-        </span>
+ const comment=document.createElement("div");
 
-      </div>
+ comment.style.cssText=
+ "margin-top:10px;padding:10px;background:var(--hover);border-radius:10px";
 
-      <div class="post-actions">
+ comment.innerHTML=
+ "<b>Jaylosy</b><br>"+escapeHTML(text.trim());
 
-        <button
-          onclick="likePost(this)">
-          ♡ Like
-        </button>
+ area.appendChild(comment);
+}
 
-        <button
-          onclick="commentPost()">
-          💬 Comment
-        </button>
+/* SHARE */
+function sharePost(button){
 
-        <button
-          onclick="sharePost()">
-          ➤ Share
-        </button>
+ const post=button.closest(".post");
 
-      </div>
+ const count=post.querySelector(".share-count");
 
-    </div>
+ let number=parseInt(count.textContent)||0;
+
+ number++;
+
+ count.textContent=number;
+
+ const shareText="Check this post on JB CHAT!";
+
+ if(navigator.share){
+
+  navigator.share({
+   title:"JB CHAT",
+   text:shareText
+  }).catch(()=>{});
+
+ }else if(navigator.clipboard){
+
+  navigator.clipboard.writeText(shareText)
+   .then(()=>alert("Post link copied!"))
+   .catch(()=>alert("Post shared!"));
+
+ }else{
+
+  alert("Post shared!");
+
+ }
+}
+
+/* FOLLOW */
+function follow(button){
+
+ if(button.textContent.trim()==="Follow"){
+
+  button.textContent="Following";
+
+  button.classList.add("following");
+
+ }else{
+
+  button.textContent="Follow";
+
+  button.classList.remove("following");
+ }
+}
+
+/* CHAT */
+function openChat(name,letter){
+
+ currentChat=name;
+
+ const windowBox=document.getElementById("chatWindow");
+
+ windowBox.style.display="block";
+
+ windowBox.innerHTML=`
+
+ <div class="chat-page">
+
+  <div class="chat-header">
+
+   <div class="avatar">${letter}</div>
+
+   <div>
+    <strong>${escapeHTML(name)}</strong>
+    <small style="display:block;color:var(--muted)">
+     ● Online
+    </small>
+   </div>
+
+  </div>
+
+  <div id="messages" class="messages">
+
+   <div class="msg them">Hello 👋</div>
+
+   <div class="msg them">
+    Welcome to JB CHAT!
+   </div>
+
+  </div>
+
+  <div class="chat-input">
+
+   <input id="messageInput"
+    placeholder="Write a message..."
+    onkeydown="if(event.key==='Enter')sendMessage()">
+
+   <button class="send" onclick="sendMessage()">➤</button>
+
+  </div>
+
+ </div>
+ `;
+
+ const input=document.getElementById("messageInput");
+
+ if(input) input.focus();
+}
+
+/* SEND MESSAGE */
+function sendMessage(){
+
+ const input=document.getElementById("messageInput");
+
+ const messages=document.getElementById("messages");
+
+ if(!input || !messages) return;
+
+ const text=input.value.trim();
+
+ if(!text) return;
+
+ const message=document.createElement("div");
+
+ message.className="msg me";
+
+ message.textContent=text;
+
+ messages.appendChild(message);
+
+ input.value="";
+
+ messages.scrollTop=messages.scrollHeight;
+}
+
+/* SEARCH */
+function searchUsers(value){
+
+ const q=(value||"").trim().toLowerCase();
+
+ const results=document.getElementById("searchResults");
+
+ if(!results) return;
+
+ const people=[
+  ["Alice","A"],
+  ["Mike","M"],
+  ["Sarah","S"],
+  ["David","D"],
+  ["Jaylosy","J"]
+ ];
+
+ if(!q){
+
+  results.innerHTML="";
+
+  return;
+ }
+
+ const found=people.filter(
+  person=>person[0].toLowerCase().includes(q)
+ );
+
+ if(!found.length){
+
+  results.innerHTML=`
+   <div class="card padding">
+    No users found.
+   </div>
   `;
 
+  return;
+ }
 
-  document
-    .getElementById("posts")
-    .prepend(post);
+ results.innerHTML=found.map(person=>`
 
+ <div class="card padding">
 
-  closePostModal();
+  <div class="person">
 
-};
+   <div class="avatar">${person[1]}</div>
 
+   <div class="person-info">
+    <strong>${person[0]}</strong>
+    <small>JB CHAT user</small>
+   </div>
 
-/* ==================================================
-   LIKE
-================================================== */
+   <button class="follow" onclick="follow(this)">
+    Follow
+   </button>
 
-window.likePost=function(button){
+  </div>
 
-  const post =
-    button.closest(".card");
+ </div>
 
+ `).join("");
+}
 
-  const count =
-    post.querySelector(".like-count");
+/* PROFILE */
+function editProfile(){
 
+ const currentName=
+ document.getElementById("profileName").textContent;
 
-  let number =
-    parseInt(count.textContent) || 0;
+ const name=prompt(
+  "Enter your display name:",
+  currentName
+ );
 
+ if(!name || !name.trim()) return;
 
-  if(
-    button.classList.contains("liked")
-  ){
+ const clean=name.trim();
 
-    number--;
+ document.getElementById("profileName").textContent=clean;
 
-    button.classList.remove("liked");
+ document.getElementById("profileAvatar").textContent=
+ clean.charAt(0).toUpperCase();
 
-    button.innerHTML="♡ Like";
+ localStorage.setItem("jbchat-name",clean);
+}
 
-  }else{
+const savedName=localStorage.getItem("jbchat-name");
 
-    number++;
+if(savedName){
 
-    button.classList.add("liked");
+ document.getElementById("profileName").textContent=savedName;
 
-    button.innerHTML="♥ Liked";
+ document.getElementById("profileAvatar").textContent=
+ savedName.charAt(0).toUpperCase();
+}
 
-  }
+/* SHARE PROFILE */
+function shareProfile(){
 
+ const text="Check my profile on JB CHAT!";
 
-  count.textContent=number;
+ if(navigator.share){
 
-};
+  navigator.share({
+   title:"JB CHAT",
+   text:text
+  }).catch(()=>{});
 
+ }else if(navigator.clipboard){
 
-/* ==================================================
-   COMMENT
-================================================== */
+  navigator.clipboard.writeText(text);
 
-window.commentPost=function(){
+  alert("Profile text copied!");
 
-  const comment =
-    prompt(
-      "Write your comment:"
-    );
+ }else{
 
+  alert(text);
 
-  if(
-    comment &&
-    comment.trim()
-  ){
+ }
+}
 
-    alert(
-      "Comment added: "+
-      comment.trim()
-    );
+/* POST MENU */
+function postMenu(button){
 
-  }
+ const post=button.closest(".post");
 
-};
+ const choice=prompt(
+  "Type DELETE to delete this post, or CANCEL:"
+ );
 
+ if(choice && choice.toLowerCase()==="delete"){
 
-/* ==================================================
-   SHARE
-================================================== */
+  if(confirm("Delete this post?")){
 
-window.sharePost=function(){
-
-  if(navigator.share){
-
-    navigator.share({
-
-      title:"JB CHAT",
-
-      text:
-        "Check this post on JB CHAT!"
-
-    });
-
-  }else{
-
-    navigator.clipboard?.writeText(
-      "Check this post on JB CHAT!"
-    );
-
-    alert(
-      "Post link copied!"
-    );
+   post.remove();
 
   }
+ }
+}
 
-};
-
-
-/* ==================================================
-   FOLLOW
-================================================== */
-
-window.follow=function(button){
-
-  if(
-    button.textContent.trim()==="Follow"
-  ){
-
-    button.textContent="Following";
-
-    button.style.background="#e4e6eb";
-
-    button.style.color="#111";
-
-  }else{
-
-    button.textContent="Follow";
-
-    button.style.background="";
-
-    button.style.color="";
-
-  }
-
-};
-
-
-/* ==================================================
-   CHAT
-================================================== */
-
-window.openChat=function(name,letter){
-
-  document.getElementById(
-    "chatWindow"
-  ).style.display="block";
-
-
-  document.getElementById(
-    "chatWindow"
-  ).innerHTML=`
-
-    <div class="chat-page">
-
-      <div class="chat-header">
-
-        <div class="avatar">
-          ${letter}
-        </div>
-
-        <div>
-
-          <strong>
-            ${name}
-          </strong>
-
-          <small
-            style="display:block;color:var(--muted);">
-            Online
-          </small>
-
-        </div>
-
-      </div>
-
-
-      <div
-        id="messages"
-        class="messages">
-
-        <div class="msg them">
-          Hello 👋
-        </div>
-
-        <div class="msg them">
-          Welcome to JB CHAT!
-        </div>
-
-      </div>
-
-
-      <div class="chat-input">
-
-        <input
-          id="messageInput"
-          placeholder="Write a message..."
-          onkeydown="
-            if(event.key==='Enter')
-            sendMessage()
-          ">
-
-        <button
-          class="send"
-          onclick="sendMessage()">
-          ➤
-        </button>
-
-      </div>
-
-    </div>
-
-  `;
-
-};
-
-
-/* ==================================================
-   SEND MESSAGE
-================================================== */
-
-window.sendMessage=function(){
-
-  const input =
-    document.getElementById(
-      "messageInput"
-    );
-
-
-  if(
-    !input ||
-    !input.value.trim()
-  ){
-
-    return;
-
-  }
-
-
-  const messages =
-    document.getElementById(
-      "messages"
-    );
-
-
-  const message =
-    document.createElement("div");
-
-
-  message.className="msg me";
-
-  message.textContent=
-    input.value.trim();
-
-
-  messages.appendChild(message);
-
-
-  input.value="";
-
-
-  messages.scrollTop=
-    messages.scrollHeight;
-
-};
-
-
-/* ==================================================
-   SEARCH
-================================================== */
-
-window.searchUsers=function(value){
-
-  const q =
-    value.trim().toLowerCase();
-
-
-  const results =
-    document.getElementById(
-      "searchResults"
-    );
-
-
-  if(!results) return;
-
-
-  const people=[
-
-    ["Alice","A"],
-
-    ["Mike","M"],
-
-    ["Sarah","S"],
-
-    ["Jaylosy","J"]
-
-  ];
-
-
-  if(!q){
-
-    results.innerHTML="";
-
-    return;
-
-  }
-
-
-  const found =
-    people.filter(
-      p =>
-      p[0]
-      .toLowerCase()
-      .includes(q)
-    );
-
-
-  if(!found.length){
-
-    results.innerHTML=`
-
-      <div class="card card-padding">
-        No users found.
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  results.innerHTML=
-    found.map(
-      p=>`
-
-      <div class="card card-padding">
-
-        <div class="person">
-
-          <div class="avatar">
-            ${p[1]}
-          </div>
-
-          <div class="person-info">
-
-            <strong>
-              ${p[0]}
-            </strong>
-
-            <small>
-              JB CHAT user
-            </small>
-
-          </div>
-
-          <button
-            class="follow"
-            onclick="follow(this)">
-            Follow
-          </button>
-
-        </div>
-
-      </div>
-
-      `
-    ).join("");
-
-};
-
-
-/* ==================================================
-   EDIT PROFILE
-================================================== */
-
-window.editProfile=function(){
-
-  const current =
-    document.getElementById(
-      "profileName"
-    ).textContent;
-
-
-  const name =
-    prompt(
-      "Enter your display name:",
-      current
-    );
-
-
-  if(
-    name &&
-    name.trim()
-  ){
-
-    const newName =
-      name.trim();
-
-
-    document.getElementById(
-      "profileName"
-    ).textContent=newName;
-
-
-    const letter =
-      newName.charAt(0)
-      .toUpperCase();
-
-
-    document.getElementById(
-      "profileAvatar"
-    ).textContent=letter;
-
-
-    document.getElementById(
-      "createAvatar"
-    ).textContent=letter;
-
-
-    document.getElementById(
-      "topAvatar"
-    ).textContent=letter;
-
-
-    document.getElementById(
-      "storyAvatar"
-    ).textContent=letter;
-
-
-    if(auth.currentUser){
-
-      updateProfile(
-        auth.currentUser,
-        {
-          displayName:newName
-        }
-      );
-
-    }
-
-  }
-
-};
-
-
-/* ==================================================
-   SHARE PROFILE
-================================================== */
-
-window.shareProfile=function(){
-
-  const text =
-    "Check my profile on JB CHAT!";
-
-
-  if(navigator.share){
-
-    navigator.share({
-
-      title:"JB CHAT",
-
-      text:text
-
-    });
-
-  }else{
-
-    navigator.clipboard?.writeText(text);
-
-    alert(
-      "Profile link copied!"
-    );
-
-  }
-
-};
-
-
-/* ==================================================
-   MORE MENU
-================================================== */
-
-window.postMenu=function(){
-
-  alert(
-    "Post options coming soon."
-  );
-
-};
-
-
-/* ==================================================
-   SECURITY
-================================================== */
-
+/* SECURITY */
 function escapeHTML(value){
 
-  const div =
-    document.createElement("div");
+ const div=document.createElement("div");
 
-  div.textContent=value;
+ div.textContent=value;
 
-  return div.innerHTML;
+ return div.innerHTML;
+}
+
+/* CLOSE MODAL */
+document.getElementById("postModal")
+ .addEventListener("click",function(e){
+
+  if(e.target===this){
+
+   closePostModal();
+
+  }
+ });
+
+/* LOGIN DEMO */
+function login(){
+
+ const email=document.getElementById("loginEmail").value.trim();
+
+ const password=document.getElementById("loginPassword").value;
+
+ if(!email || !password){
+
+  alert("Please enter your email and password.");
+
+  return;
+ }
+
+ if(!email.includes("@")){
+
+  alert("Please enter a valid email.");
+
+  return;
+ }
+
+ localStorage.setItem("jbchat-login","true");
+
+ document.getElementById("loginScreen").classList.remove("show");
+
+ alert("Welcome to JB CHAT!");
 
 }
 
+/* REGISTER DEMO */
+function register(){
 
-/* ==================================================
-   CLOSE MODAL
-================================================== */
+ const email=prompt("Enter your email:");
 
-document
-  .getElementById("postModal")
-  .addEventListener(
-    "click",
-    function(e){
+ if(!email) return;
 
-      if(e.target===this){
+ if(!email.includes("@")){
 
-        closePostModal();
+  alert("Invalid email.");
 
-      }
+  return;
+ }
 
-    }
-  );
+ const password=prompt("Create a password:");
 
+ if(!password || password.length<6){
+
+  alert("Password must contain at least 6 characters.");
+
+  return;
+ }
+
+ localStorage.setItem("jbchat-login","true");
+
+ document.getElementById("loginScreen").classList.remove("show");
+
+ alert("Account created successfully!");
+
+}
+
+/* GOOGLE DEMO */
+function googleLogin(){
+
+ alert(
+  "Google login will be connected when Firebase Authentication is added."
+ );
+}
+
+/* LOGOUT */
+function logout(){
+
+ if(!confirm("Do you want to log out?")) return;
+
+ localStorage.removeItem("jbchat-login");
+
+ alert("You have been logged out.");
+
+ document.getElementById("loginScreen").classList.add("show");
+}
+
+/* INITIALIZATION */
+window.addEventListener("load",()=>{
+
+ if(!loggedIn){
+
+  /*
+   Login screen is intentionally not forced on first load.
+   The application can be tested immediately.
+  */
+
+ }
+
+});
 </script>
 
 </body>
