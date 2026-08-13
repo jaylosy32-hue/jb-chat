@@ -1315,6 +1315,44 @@ window.addEventListener("load",()=>{
  }
 
 });
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    GoogleAuthProvider,
+    signInWithPopup,
+    sendEmailVerification,
+    signOut,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBIgI-7u2FNuF3ncZ1S2qfcnyFXDttfNLg",
+    authDomain: "jb-chat257.firebaseapp.com",
+    projectId: "jb-chat257",
+    storageBucket: "jb-chat257.firebasestorage.app",
+    messagingSenderId: "523634026977",
+    appId: "1:523634026977:web:ed56aca470dfda325c8aa0"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const googleProvider = new GoogleAuthProvider();
+
+  window.jbFirebase = {
+    auth,
+    googleProvider,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signInWithPopup,
+    sendEmailVerification,
+    signOut,
+    onAuthStateChanged
+  };
+
+  console.log("🔥 Firebase JB CHAT connected!");
 </script>
 
 </body>
